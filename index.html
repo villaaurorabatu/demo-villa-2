@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Villa Gathering Batu - Villa Aurora Emerald</title>
+    <!-- Google Fonts: Playfair Display for Serifs, Inter for UI -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN with custom config for Purple & Gold -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        purple: {
+                            50: '#fdf4ff',
+                            100: '#fae8ff',
+                            200: '#f5d0fe',
+                            300: '#f0abfc',
+                            400: '#e879f9',
+                            500: '#d946ef',
+                            600: '#c084fc',
+                            700: '#a855f7',
+                            800: '#581180',
+                            900: '#3c0757',
+                            950: '#1e022b', // Deep luxurious royal dark purple background
+                        },
+                        gold: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#facc15',
+                            500: '#eab308', // Pure bright gold
+                            600: '#ca8a04', // Rich gold
+                            700: '#a16207', // Dark bronze gold
+                            850: '#6b3e04',
+                            950: '#451a03',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons for Beautiful Visuals -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .glass-nav {
+            background-color: rgba(30, 2, 43, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .text-glow {
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+        /* Custom scrollbar matching new Royal Purple & Gold theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e022b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ca8a04;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #eab308;
+        }
+    </style>
+</head>
+<body class="bg-purple-950 text-stone-100 font-sans antialiased overflow-x-hidden">
+
+<header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 glass-nav border-b border-purple-900/40" id="mainHeader">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+            <!-- Logo Section -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-full bg-gold-600 flex items-center justify-center shadow-lg shadow-gold-950/40 group-hover:scale-105 transition-transform duration-300">
+                    <i class="fa-solid fa-hotel text-white text-lg"></i>
+                </div>
+                <div>
+                    <span class="block text-lg font-serif font-bold text-white tracking-wide leading-none">Villa Aurora</span>
+                    <span class="block text-xs text-gold-500 uppercase tracking-widest mt-0.5">Emerald Batu</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#tentang" class="text-sm font-medium text-stone-300 hover:text-gold-500 transition-colors">Tentang</a>
+                <a href="#kelebihan" class="text-sm font-medium text-stone-300 hover:text-gold-500 transition-colors">Kelebihan</a>
+                <a href="#fasilitas" class="text-sm font-medium text-stone-300 hover:text-gold-500 transition-colors">Fasilitas</a>
+                <a href="#wisata" class="text-sm font-medium text-stone-300 hover:text-gold-500 transition-colors">Wisata</a>
+                <a href="#gallery" class="text-sm font-medium text-stone-300 hover:text-gold-500 transition-colors">Galeri</a>
+                <a href="#faq" class="text-sm font-medium text-stone-300 hover:text-gold-500 transition-colors">FAQ</a>
+            </nav>
+
+            <!-- Call to Actions -->
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="#booking" class="bg-gold-600 hover:bg-gold-700 text-white font-semibold px-5 py-2.5 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-gold-600/20 text-sm">
+                    <i class="fa-solid fa-calendar-days mr-2"></i>Booking Sekarang
+                </a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <button id="mobileMenuBtn" class="md:hidden text-stone-300 hover:text-white focus:outline-none p-2" aria-label="Toggle menu">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="hidden md:hidden bg-purple-950 border-t border-purple-900/50 px-4 pt-4 pb-6 space-y-3 shadow-xl transition-all duration-300">
+        <a href="#tentang" class="block text-base font-medium text-stone-200 hover:bg-purple-900/50 hover:text-gold-500 px-3 py-2.5 rounded-lg transition-all">Tentang</a>
+        <a href="#kelebihan" class="block text-base font-medium text-stone-200 hover:bg-purple-900/50 hover:text-gold-500 px-3 py-2.5 rounded-lg transition-all">Kelebihan</a>
+        <a href="#fasilitas" class="block text-base font-medium text-stone-200 hover:bg-purple-900/50 hover:text-gold-500 px-3 py-2.5 rounded-lg transition-all">Fasilitas</a>
+        <a href="#wisata" class="block text-base font-medium text-stone-200 hover:bg-purple-900/50 hover:text-gold-500 px-3 py-2.5 rounded-lg transition-all">Wisata</a>
+        <a href="#gallery" class="block text-base font-medium text-stone-200 hover:bg-purple-900/50 hover:text-gold-500 px-3 py-2.5 rounded-lg transition-all">Galeri</a>
+        <a href="#faq" class="block text-base font-medium text-stone-200 hover:bg-purple-900/50 hover:text-gold-500 px-3 py-2.5 rounded-lg transition-all">FAQ</a>
+        <div class="pt-4 border-t border-purple-900/50 flex flex-col gap-3">
+            <button onclick="openAvailabilityModal()" class="w-full bg-purple-800 hover:bg-purple-700 text-white font-medium px-4 py-3 rounded-lg text-center transition-all">
+                Cek Ketersediaan
+            </button>
+            <a href="#booking" class="w-full bg-gold-600 hover:bg-gold-700 text-white font-semibold px-4 py-3 rounded-lg text-center transition-all block">
+                <i class="fa-solid fa-calendar-days mr-2"></i>Booking Sekarang
+            </a>
+        </div>
+    </div>
+</header>
+
+<section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+    <!-- Background Hero Image with Royal Purple Overlay -->
+    <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-gradient-to-r from-purple-950 via-purple-950/80 to-transparent z-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-purple-950 via-transparent to-purple-950/40 z-10"></div>
+        <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1920&q=80" 
+             class="w-full h-full object-cover object-center scale-105 animate-[pulse_8s_infinite_alternate]" 
+             alt="Villa Aurora Emerald Batu Exterior"
+             onerror="this.src='https://placehold.co/1920x1080/3c0757/ffffff?text=Villa+Gathering+Batu'">
+    </div>
+
+    <!-- Content Area -->
+    <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Hero Text -->
+        <div class="lg:col-span-7 space-y-6 text-left">
+            <div class="inline-flex items-center space-x-2 bg-gold-500/15 border border-gold-500/30 text-gold-400 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase">
+                <i class="fa-solid fa-star text-gold-500 animate-spin-slow"></i> <span>Premium Villa Gathering</span>
+            </div>
+            
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight text-glow">
+                Villa Nyaman untuk <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200">Keluarga Besar</span> & Rombongan
+            </h1>
+            
+            <p class="text-lg text-stone-300 max-w-xl leading-relaxed">
+                Pilihan tepat untuk gathering, reuni, arisan keluarga, dan liburan bersama di Kota Batu dengan kapasitas besar dan fasilitas lengkap.
+            </p>
+
+            <!-- Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                <button onclick="openAvailabilityModal()" class="group bg-gold-500 hover:bg-gold-600 text-purple-950 font-bold px-8 py-4 rounded-xl shadow-xl shadow-gold-500/10 transition-all duration-300 hover:-translate-y-1 flex items-center justify-center gap-2">
+                    <span>Cek Ketersediaan</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </button>
+                <a href="#booking" class="bg-purple-900/60 hover:bg-purple-900 border border-purple-700/50 hover:border-gold-500 text-stone-200 hover:text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:-translate-y-1 text-center">
+                    Booking Sekarang
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Summary Card Widget -->
+        <div class="lg:col-span-5 bg-purple-900/45 border border-purple-800/40 backdrop-blur-xl rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6">
+            <h3 class="text-xl font-serif font-bold text-white border-b border-purple-800/60 pb-4">
+                <i class="fa-solid fa-bolt text-gold-500 mr-2"></i>Konfirmasi Cepat
+            </h3>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-purple-950/60 p-4 rounded-xl border border-purple-900/60">
+                    <span class="block text-xs text-stone-400 mb-1">Check-In Mulai</span>
+                    <span class="block text-sm font-bold text-white">14:00 WIB</span>
+                </div>
+                <div class="bg-purple-950/60 p-4 rounded-xl border border-purple-900/60">
+                    <span class="block text-xs text-stone-400 mb-1">Check-Out Max</span>
+                    <span class="block text-sm font-bold text-white">12:00 WIB</span>
+                </div>
+            </div>
+            <div class="space-y-3">
+                <div class="flex items-center space-x-3 text-sm text-stone-300">
+                    <i class="fa-solid fa-circle-check text-gold-500"></i>
+                    <span>Tersedia Parkir Muat Banyak Mobil</span>
+                </div>
+                <div class="flex items-center space-x-3 text-sm text-stone-300">
+                    <i class="fa-solid fa-circle-check text-gold-500"></i>
+                    <span>Free WiFi High Speed & Smart TV</span>
+                </div>
+                <div class="flex items-center space-x-3 text-sm text-stone-300">
+                    <i class="fa-solid fa-circle-check text-gold-500"></i>
+                    <span>Sistem Air Panas (Water Heater)</span>
+                </div>
+            </div>
+            <a href="https://wa.me/6281359815703?text=Halo%20Villa%20Aurora%20Batu,%20saya%20tertarik%20tanya%20harga%20dan%20ketersediaan%20unit." target="_blank" rel="noopener" class="block w-full text-center bg-purple-700 hover:bg-purple-600 text-white font-semibold py-3 rounded-lg transition-all">
+                <i class="fa-brands fa-whatsapp mr-2"></i>Tanya Lewat WhatsApp
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="relative z-30 -mt-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-gradient-to-r from-gold-600 to-gold-700 rounded-2xl shadow-xl p-8 lg:p-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8 text-center text-white">
+        <div class="flex flex-col items-center justify-center space-y-2 border-r border-gold-500/40 last:border-0 md:last:border-r lg:last:border-0">
+            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-xl mb-1">
+                <i class="fa-solid fa-users"></i>
+            </div>
+            <span class="text-xs text-gold-100 uppercase font-semibold tracking-wider">Kapasitas</span>
+            <span class="text-sm font-bold">Hingga 20 Orang</span>
+        </div>
+        <div class="flex flex-col items-center justify-center space-y-2 border-r border-gold-500/40 last:border-0 md:last:border-r lg:last:border-0">
+            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-xl mb-1">
+                <i class="fa-solid fa-fire-burner"></i>
+            </div>
+            <span class="text-xs text-gold-100 uppercase font-semibold tracking-wider">Outdoor</span>
+            <span class="text-sm font-bold">Area BBQ</span>
+        </div>
+        <div class="flex flex-col items-center justify-center space-y-2 border-r border-gold-500/40 last:border-0 lg:border-r lg:last:border-0">
+            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-xl mb-1">
+                <i class="fa-solid fa-music"></i>
+            </div>
+            <span class="text-xs text-gold-100 uppercase font-semibold tracking-wider">Hiburan</span>
+            <span class="text-sm font-bold">Karaoke</span>
+        </div>
+        <div class="flex flex-col items-center justify-center space-y-2 border-r border-gold-500/40 last:border-0 md:last:border-r lg:last:border-0">
+            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-xl mb-1">
+                <i class="fa-solid fa-kitchen-set"></i>
+            </div>
+            <span class="text-xs text-gold-100 uppercase font-semibold tracking-wider">Masak</span>
+            <span class="text-sm font-bold">Dapur Lengkap</span>
+        </div>
+        <div class="flex flex-col items-center justify-center space-y-2 border-r border-gold-500/40 last:border-0 md:last:border-r lg:last:border-0">
+            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-xl mb-1">
+                <i class="fa-solid fa-square-parking"></i>
+            </div>
+            <span class="text-xs text-gold-100 uppercase font-semibold tracking-wider">Kendaraan</span>
+            <span class="text-sm font-bold">Parkir Luas</span>
+        </div>
+        <div class="flex flex-col items-center justify-center space-y-2 last:border-0">
+            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-xl mb-1">
+                <i class="fa-solid fa-wifi"></i>
+            </div>
+            <span class="text-xs text-gold-100 uppercase font-semibold tracking-wider">Koneksi</span>
+            <span class="text-sm font-bold">WiFi Gratis</span>
+        </div>
+    </div>
+</section>
+
+<section id="tentang" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        <!-- Text Content -->
+        <div class="lg:col-span-6 space-y-6">
+            <div class="inline-flex items-center space-x-2 bg-purple-900/80 text-gold-500 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider">
+                <i class="fa-solid fa-building"></i> <span>Tentang Villa</span>
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white leading-tight">
+                Kehangatan Rumah <br>dengan <span class="text-gold-500 italic">Keindahan Batu</span>
+            </h2>
+            <div class="space-y-4 text-stone-300 leading-relaxed">
+                <p>
+                    <strong class="text-white text-lg font-serif">Villa Gathering Batu</strong> dirancang khusus untuk keluarga besar dan rombongan yang ingin menikmati kebersamaan dalam satu tempat yang nyaman.
+                </p>
+                <p>
+                    Kami menyadari bahwa momen berkumpul bersama orang tersayang adalah saat yang sangat berharga. Oleh karena itu, area luas dan berbagai fasilitas lengkap yang kami sediakan di Villa Aurora Emerald ini memastikan setiap momen kumpul Anda menjadi lebih menyenangkan, akrab, dan tak terlupakan.
+                </p>
+                <p>
+                    Terletak di kawasan pegunungan yang sejuk, villa ini menawarkan udara bersih khas kota Batu serta kemudahan akses ke berbagai pusat rekreasi keluarga.
+                </p>
+            </div>
+            
+            <div class="pt-4 border-t border-purple-900/60 grid grid-cols-2 gap-6">
+                <div>
+                    <span class="block text-3xl font-serif font-bold text-gold-500">20+</span>
+                    <span class="block text-sm text-stone-400">Kapasitas Maksimal Tamu</span>
+                </div>
+                <div>
+                    <span class="block text-3xl font-serif font-bold text-gold-500">100%</span>
+                    <span class="block text-sm text-stone-400">Kenyamanan & Kebersihan</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Content Collage -->
+        <div class="lg:col-span-6 relative">
+            <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-purple-800/40 relative z-10">
+                <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1200&q=80" 
+                     class="w-full h-full object-cover" 
+                     alt="Villa Gathering Batu Gathering Space"
+                     onerror="this.src='https://placehold.co/1200x900/3c0757/ffffff?text=Ruang+Kumpul+Villa'">
+                <div class="absolute inset-0 bg-gradient-to-t from-purple-950/80 to-transparent"></div>
+                <div class="absolute bottom-6 left-6 right-6">
+                    <span class="text-xs text-gold-400 font-semibold uppercase tracking-wider">Halaman Villa</span>
+                    <h4 class="text-lg font-serif font-bold text-white mt-1">Area Hijau & Kebersamaan</h4>
+                </div>
+            </div>
+            
+            <!-- Floating Decorative Element -->
+            <div class="absolute -bottom-8 -left-8 bg-gold-600 text-white p-6 rounded-2xl shadow-xl z-20 max-w-xs hidden sm:block">
+                <i class="fa-solid fa-quote-left text-3xl text-gold-200/40 mb-2 block"></i>
+                <p class="text-sm italic font-serif text-gold-50">
+                    "Tempat terbaik untuk melepaskan penat dan berkumpul dengan keluarga besar."
+                </p>
+            </div>
+            <!-- Decorative border background -->
+            <div class="absolute -top-6 -right-6 w-full h-full border-2 border-dashed border-gold-600/30 rounded-2xl z-0"></div>
+        </div>
+    </div>
+</section>
+
+<section id="kelebihan" class="py-24 bg-purple-900/30 border-y border-purple-900/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+            <span class="inline-flex items-center space-x-2 bg-gold-500/10 text-gold-400 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider">
+                <i class="fa-solid fa-heart"></i> <span>Kelebihan Kami</span>
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white">Kenapa Memilih Villa Ini?</h2>
+            <p class="text-stone-300">
+                Setiap detail di Villa Gathering Batu didesain untuk memastikan Anda dan rombongan mendapatkan pengalaman menginap terbaik tanpa repot.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Capacity -->
+            <div class="bg-purple-950 p-8 rounded-2xl border border-purple-900/60 hover:border-gold-500/50 transition-all duration-300 hover:-translate-y-1 group">
+                <div class="w-14 h-14 rounded-xl bg-gold-600/15 text-gold-500 flex items-center justify-center text-2xl mb-6 group-hover:bg-gold-600 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Kapasitas Besar</h3>
+                <p class="text-stone-400 text-sm leading-relaxed">
+                    Sangat cocok untuk rombongan keluarga besar, reuni, arisan, maupun kumpul komunitas tanpa perlu khawatir kekurangan tempat tidur.
+                </p>
+            </div>
+
+            <!-- Spacious Living -->
+            <div class="bg-purple-950 p-8 rounded-2xl border border-purple-900/60 hover:border-gold-500/50 transition-all duration-300 hover:-translate-y-1 group">
+                <div class="w-14 h-14 rounded-xl bg-gold-600/15 text-gold-500 flex items-center justify-center text-2xl mb-6 group-hover:bg-gold-600 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-couch"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Ruang Kumpul Luas</h3>
+                <p class="text-stone-400 text-sm leading-relaxed">
+                    Dilengkapi dengan area keluarga berukuran lapang yang ideal sebagai tempat bercengkerama bersama, bermain game, atau koordinasi acara.
+                </p>
+            </div>
+
+            <!-- BBQ Area -->
+            <div class="bg-purple-950 p-8 rounded-2xl border border-purple-900/60 hover:border-gold-500/50 transition-all duration-300 hover:-translate-y-1 group">
+                <div class="w-14 h-14 rounded-xl bg-gold-600/15 text-gold-500 flex items-center justify-center text-2xl mb-6 group-hover:bg-gold-600 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-fire-burner"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Area BBQ</h3>
+                <p class="text-stone-400 text-sm leading-relaxed">
+                    Nikmati hangatnya kebersamaan dengan membakar daging, jagung, dan hidangan lezat lainnya di area barbecue outdoor yang telah disiapkan khusus.
+                </p>
+            </div>
+
+            <!-- Karaoke Room -->
+            <div class="bg-purple-950 p-8 rounded-2xl border border-purple-900/60 hover:border-gold-500/50 transition-all duration-300 hover:-translate-y-1 group">
+                <div class="w-14 h-14 rounded-xl bg-gold-600/15 text-gold-500 flex items-center justify-center text-2xl mb-6 group-hover:bg-gold-600 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-microphone-lines"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Karaoke Room</h3>
+                <p class="text-stone-400 text-sm leading-relaxed">
+                    Tersedia hiburan tambahan berupa sistem karaoke untuk mencairkan suasana dan menghibur seluruh anggota keluarga dari segala usia.
+                </p>
+            </div>
+
+            <!-- Strategic Location -->
+            <div class="bg-purple-950 p-8 rounded-2xl border border-purple-900/60 hover:border-gold-500/50 transition-all duration-300 hover:-translate-y-1 group">
+                <div class="w-14 h-14 rounded-xl bg-gold-600/15 text-gold-500 flex items-center justify-center text-2xl mb-6 group-hover:bg-gold-600 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Lokasi Strategis</h3>
+                <p class="text-stone-400 text-sm leading-relaxed">
+                    Hanya berjarak menit saja ke destinasi wisata favorit di Kota Wisata Batu, memudahkan pergerakan rombongan Anda selama liburan.
+                </p>
+            </div>
+
+            <!-- Premium Service -->
+            <div class="bg-purple-950 p-8 rounded-2xl border border-purple-900/60 hover:border-gold-500/50 transition-all duration-300 hover:-translate-y-1 group">
+                <div class="w-14 h-14 rounded-xl bg-gold-600/15 text-gold-500 flex items-center justify-center text-2xl mb-6 group-hover:bg-gold-600 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-handshake-angle"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Respons Cepat</h3>
+                <p class="text-stone-400 text-sm leading-relaxed">
+                    Staf kami siap membantu koordinasi check-in, persiapan fasilitas tambahan, serta menjawab semua kebutuhan rombongan Anda dengan ramah.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="fasilitas" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+        <!-- Sticky Text Block -->
+        <div class="lg:col-span-4 lg:sticky lg:top-28 space-y-6">
+            <span class="inline-flex items-center space-x-2 bg-purple-900/80 text-gold-500 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider">
+                <i class="fa-solid fa-list-check"></i> <span>Kelengkapan Villa</span>
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white leading-tight">
+                Fasilitas <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200">Bintang Lima</span>
+            </h2>
+            <p class="text-stone-300 leading-relaxed text-sm sm:text-base">
+                Kami menyediakan segala fasilitas esensial hingga hiburan modern untuk kenyamanan layaknya rumah sendiri di tengah sejuknya dataran tinggi Batu.
+            </p>
+            <div class="bg-gold-600/10 border border-gold-600/20 p-5 rounded-xl space-y-3">
+                <span class="block text-xs font-semibold uppercase tracking-widest text-gold-400">Pemberitahuan</span>
+                <p class="text-xs text-stone-300">
+                    Seluruh peralatan dapur, alat barbeque, dan koneksi internet WiFi bebas digunakan tanpa biaya tambahan apa pun.
+                </p>
+            </div>
+        </div>
+
+        <!-- Facilities Categories / Grid -->
+        <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Bed & Bath Card -->
+            <div class="bg-purple-900/20 p-6 rounded-2xl border border-purple-900/50 space-y-4">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2 border-b border-purple-900 pb-3">
+                    <i class="fa-solid fa-bed text-gold-500"></i> Kamar & Mandi
+                </h3>
+                <ul class="space-y-3 text-sm text-stone-300">
+                    <li class="flex items-center justify-between">
+                        <span><i class="fa-solid fa-circle-check text-purple-700 mr-2"></i>4 Kamar Tidur Nyaman</span>
+                        <span class="text-xs text-gold-400 bg-gold-500/10 px-2 py-0.5 rounded">Bed Premium</span>
+                    </li>
+                    <li class="flex items-center justify-between">
+                        <span><i class="fa-solid fa-circle-check text-purple-700 mr-2"></i>3 Kamar Mandi</span>
+                        <span class="text-xs text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded">Water Heater</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Entertainment Card -->
+            <div class="bg-purple-900/20 p-6 rounded-2xl border border-purple-900/50 space-y-4">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2 border-b border-purple-900 pb-3">
+                    <i class="fa-solid fa-tv text-gold-500"></i> Media & Hiburan
+                </h3>
+                <ul class="space-y-3 text-sm text-stone-300">
+                    <li class="flex items-center"><i class="fa-solid fa-circle-check text-purple-700 mr-2"></i>Smart TV Layar Besar</li>
+                    <li class="flex items-center"><i class="fa-solid fa-circle-check text-purple-700 mr-2"></i>Karaoke Set Premium</li>
+                    <li class="flex items-center"><i class="fa-solid fa-circle-check text-purple-700 mr-2"></i>Koneksi WiFi Unlimited</li>
+                </ul>
+            </div>
+
+            <!-- Kitchen Area Card -->
+            <div class="bg-purple-900/20 p-6 rounded-2xl border border-purple-900/50 space-y-4 sm:col-span-2">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2 border-b border-purple-900 pb-3">
+                    <i class="fa-solid fa-kitchen-set text-gold-500"></i> Dapur & Masak
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-stone-300">
+                    <ul class="space-y-3">
+                        <li class="flex items-center"><i class="fa-solid fa-circle-check text-purple-700 mr-2"></i>Kitchen Set Modern</li>
+                        <li class="flex items-center"><i class="fa-solid fa-circle-check text-purple-700 mr-2"></i>Rice Cooker & Kulkas</li>
+                        <li class="flex items-center"><i class="fa-solid fa-circle-check text-purple-700 mr-2"></i>Kompor Gas 2 Tungku</li>
+                    </ul>
+                    <ul class="space-y-3">
+                        <li class="flex items-center"><i class="fa-solid fa-circle-check text-purple-700 mr-2"></i>Alat Makan & Masak Lengkap</li>
+                        <li class="flex items-center"><i class="fa-solid fa-circle-check text-purple-700 mr-2"></i>Air Minum Galon & Dispenser</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Outdoor & Garden Card -->
+            <div class="bg-purple-900/20 p-6 rounded-2xl border border-purple-900/50 space-y-4 sm:col-span-2">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2 border-b border-purple-900 pb-3">
+                    <i class="fa-solid fa-tree text-gold-500"></i> Area Luar & Taman
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-stone-300">
+                    <ul class="space-y-3">
+                        <li class="flex items-center"><i class="fa-solid fa-circle-check text-purple-700 mr-2"></i>Alat & Area BBQ Khusus</li>
+                        <li class="flex items-center"><i class="fa-solid fa-circle-check text-purple-700 mr-2"></i>Taman Hijau yang Asri</li>
+                    </ul>
+                    <ul class="space-y-3">
+                        <li class="flex items-center"><i class="fa-solid fa-circle-check text-purple-700 mr-2"></i>Parkir Luas Muat Beberapa Mobil</li>
+                        <li class="flex items-center"><i class="fa-solid fa-circle-check text-purple-700 mr-2"></i>Lingkungan Villa Tenang & Aman</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-24 bg-purple-900/30 border-t border-purple-900/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+            <span class="inline-flex items-center space-x-2 bg-gold-500/10 text-gold-400 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider">
+                <i class="fa-solid fa-bullseye"></i> <span>Momen Pilihan</span>
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white">Sangat Cocok Untuk</h2>
+            <p class="text-stone-300">
+                Kami siap menjadi tuan rumah untuk berbagai agenda kebersamaan spesial yang Anda rencanakan.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Family Gathering -->
+            <div class="relative group rounded-2xl overflow-hidden aspect-[3/4] shadow-xl">
+                <div class="absolute inset-0 z-10 bg-gradient-to-t from-purple-950 via-purple-950/40 to-transparent"></div>
+                <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=600&q=80" 
+                     class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                     alt="Family Gathering"
+                     onerror="this.src='https://placehold.co/600x800/1e022b/ffffff?text=Family+Gathering'">
+                <div class="absolute inset-0 z-20 flex flex-col justify-end p-6">
+                    <span class="text-gold-400 text-xs font-bold uppercase tracking-widest">Keluarga</span>
+                    <h3 class="text-xl font-serif font-bold text-white mt-1">Family Gathering</h3>
+                    <p class="text-stone-300 text-xs mt-2 line-clamp-3">
+                        Acara keluarga besar dengan suasana hangat, akrab, dan fasilitas yang ramah untuk anak-anak hingga lansia.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Reuni -->
+            <div class="relative group rounded-2xl overflow-hidden aspect-[3/4] shadow-xl">
+                <div class="absolute inset-0 z-10 bg-gradient-to-t from-purple-950 via-purple-950/40 to-transparent"></div>
+                <img src="https://images.unsplash.com/photo-1543807535-eceef0bc6599?auto=format&fit=crop&w=600&q=80" 
+                     class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                     alt="Reuni"
+                     onerror="this.src='https://placehold.co/600x800/1e022b/ffffff?text=Reuni+Teman'">
+                <div class="absolute inset-0 z-20 flex flex-col justify-end p-6">
+                    <span class="text-gold-400 text-xs font-bold uppercase tracking-widest">Kawan Lama</span>
+                    <h3 class="text-xl font-serif font-bold text-white mt-1">Reuni Akbar</h3>
+                    <p class="text-stone-300 text-xs mt-2 line-clamp-3">
+                        Berkumpul kembali bersama teman sekolah atau sejawat lama untuk merajut kembali memori indah dalam kenyamanan penuh.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Komunitas -->
+            <div class="relative group rounded-2xl overflow-hidden aspect-[3/4] shadow-xl">
+                <div class="absolute inset-0 z-10 bg-gradient-to-t from-purple-950 via-purple-950/40 to-transparent"></div>
+                <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=600&q=80" 
+                     class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                     alt="Komunitas"
+                     onerror="this.src='https://placehold.co/600x800/1e022b/ffffff?text=Acara+Komunitas'">
+                <div class="absolute inset-0 z-20 flex flex-col justify-end p-6">
+                    <span class="text-gold-400 text-xs font-bold uppercase tracking-widest">Organisasi</span>
+                    <h3 class="text-xl font-serif font-bold text-white mt-1">Komunitas</h3>
+                    <p class="text-stone-300 text-xs mt-2 line-clamp-3">
+                        Tempat yang lapang dan nyaman untuk menyelenggarakan rapat kerja, santai, makrab, atau kegiatan koordinasi lainnya.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Liburan Grup -->
+            <div class="relative group rounded-2xl overflow-hidden aspect-[3/4] shadow-xl">
+                <div class="absolute inset-0 z-10 bg-gradient-to-t from-purple-950 via-purple-950/40 to-transparent"></div>
+                <img src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&w=600&q=80" 
+                     class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                     alt="Liburan Grup"
+                     onerror="this.src='https://placehold.co/600x800/1e022b/ffffff?text=Liburan+Grup'">
+                <div class="absolute inset-0 z-20 flex flex-col justify-end p-6">
+                    <span class="text-gold-400 text-xs font-bold uppercase tracking-widest">Eksplorasi</span>
+                    <h3 class="text-xl font-serif font-bold text-white mt-1">Liburan Grup</h3>
+                    <p class="text-stone-300 text-xs mt-2 line-clamp-3">
+                        Menginap bersama rekan sejawat atau rombongan wisata tanpa harus terpisah di kamar-kamar hotel yang berbeda.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="wisata" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        <!-- Text & Visuals Side -->
+        <div class="lg:col-span-5 space-y-6">
+            <span class="inline-flex items-center space-x-2 bg-purple-900/80 text-gold-500 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider">
+                <i class="fa-solid fa-map-pin"></i> <span>Akses Lokasi</span>
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white leading-tight">
+                Tempat Wisata <br><span class="text-gold-500">Terdekat</span> Dari Villa
+            </h2>
+            <p class="text-stone-300 leading-relaxed">
+                Villa kami terletak sangat strategis di pusat wisata Kota Batu. Menghemat banyak waktu di perjalanan agar Anda memiliki lebih banyak waktu santai bersama rombongan.
+            </p>
+            <div class="p-6 rounded-2xl bg-purple-900/20 border border-purple-900/60 space-y-4">
+                <div class="flex items-start space-x-4">
+                    <div class="w-10 h-10 rounded-lg bg-gold-600/20 text-gold-500 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-car"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">Akses Jalan Sangat Mudah</h4>
+                        <p class="text-xs text-stone-400 mt-1">Dapat dijangkau dengan mudah menggunakan minibus, elf, hingga mobil pribadi ukuran besar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tourist Destination Cards Grid -->
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Wisata 1 -->
+            <div class="bg-purple-950 p-5 rounded-xl border border-purple-900/60 flex items-center space-x-4 hover:border-gold-500/40 transition-all duration-300">
+                <div class="w-12 h-12 rounded-lg bg-gold-600/10 text-gold-500 flex items-center justify-center shrink-0 text-xl font-bold font-serif">
+                    01
+                </div>
+                <div>
+                    <h4 class="text-base font-bold text-white">Jatim Park 3</h4>
+                    <span class="text-xs text-stone-400"><i class="fa-solid fa-clock mr-1"></i> Hanya beberapa menit berkendara</span>
+                </div>
+            </div>
+            <!-- Wisata 2 -->
+            <div class="bg-purple-950 p-5 rounded-xl border border-purple-900/60 flex items-center space-x-4 hover:border-gold-500/40 transition-all duration-300">
+                <div class="w-12 h-12 rounded-lg bg-gold-600/10 text-gold-500 flex items-center justify-center shrink-0 text-xl font-bold font-serif">
+                    02
+                </div>
+                <div>
+                    <h4 class="text-base font-bold text-white">Jatim Park 2</h4>
+                    <span class="text-xs text-stone-400"><i class="fa-solid fa-clock mr-1"></i> Lokasi sangat dekat</span>
+                </div>
+            </div>
+            <!-- Wisata 3 -->
+            <div class="bg-purple-950 p-5 rounded-xl border border-purple-900/60 flex items-center space-x-4 hover:border-gold-500/40 transition-all duration-300">
+                <div class="w-12 h-12 rounded-lg bg-gold-600/10 text-gold-500 flex items-center justify-center shrink-0 text-xl font-bold font-serif">
+                    03
+                </div>
+                <div>
+                    <h4 class="text-base font-bold text-white">Batu Secret Zoo</h4>
+                    <span class="text-xs text-stone-400"><i class="fa-solid fa-clock mr-1"></i> Sangat dekat untuk keluarga</span>
+                </div>
+            </div>
+            <!-- Wisata 4 -->
+            <div class="bg-purple-950 p-5 rounded-xl border border-purple-900/60 flex items-center space-x-4 hover:border-gold-500/40 transition-all duration-300">
+                <div class="w-12 h-12 rounded-lg bg-gold-600/10 text-gold-500 flex items-center justify-center shrink-0 text-xl font-bold font-serif">
+                    04
+                </div>
+                <div>
+                    <h4 class="text-base font-bold text-white">Museum Angkut</h4>
+                    <span class="text-xs text-stone-400"><i class="fa-solid fa-clock mr-1"></i> Akses super cepat</span>
+                </div>
+            </div>
+            <!-- Wisata 5 -->
+            <div class="bg-purple-950 p-5 rounded-xl border border-purple-900/60 flex items-center space-x-4 hover:border-gold-500/40 transition-all duration-300">
+                <div class="w-12 h-12 rounded-lg bg-gold-600/10 text-gold-500 flex items-center justify-center shrink-0 text-xl font-bold font-serif">
+                    05
+                </div>
+                <div>
+                    <h4 class="text-base font-bold text-white">Batu Night Spectacular</h4>
+                    <span class="text-xs text-stone-400"><i class="fa-solid fa-clock mr-1"></i> Dekat & Mudah dijangkau malam hari</span>
+                </div>
+            </div>
+            <!-- Wisata 6 -->
+            <div class="bg-purple-950 p-5 rounded-xl border border-purple-900/60 flex items-center space-x-4 hover:border-gold-500/40 transition-all duration-300">
+                <div class="w-12 h-12 rounded-lg bg-gold-600/10 text-gold-500 flex items-center justify-center shrink-0 text-xl font-bold font-serif">
+                    06
+                </div>
+                <div>
+                    <h4 class="text-base font-bold text-white">Alun-Alun Kota Batu</h4>
+                    <span class="text-xs text-stone-400"><i class="fa-solid fa-clock mr-1"></i> Pusat kuliner terdekat</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="gallery" class="py-24 bg-purple-900/30 border-t border-purple-900/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+            <span class="inline-flex items-center space-x-2 bg-gold-500/10 text-gold-400 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider">
+                <i class="fa-solid fa-camera"></i> <span>Galeri Foto</span>
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white">Eksplorasi Setiap Sudut Villa</h2>
+            <p class="text-stone-300">
+                Klik pada gambar untuk memperbesar dan melihat kelengkapan ruangan kami secara lebih detail.
+            </p>
+        </div>
+
+        <!-- Masonry-like Responsive Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Item 1 -->
+            <div class="group relative rounded-2xl overflow-hidden aspect-[4/3] cursor-pointer shadow-lg border border-purple-900/50" onclick="openLightbox(this)">
+                <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80" 
+                     class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" 
+                     alt="Ruang Keluarga"
+                     onerror="this.src='https://placehold.co/800x600/1e022b/ffffff?text=Ruang+Keluarga'">
+                <div class="absolute inset-0 bg-gradient-to-t from-purple-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                    <div>
+                        <span class="text-xs text-gold-400 uppercase tracking-widest font-semibold">Area Utama</span>
+                        <h4 class="text-lg font-bold text-white">Ruang Keluarga</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="group relative rounded-2xl overflow-hidden aspect-[4/3] cursor-pointer shadow-lg border border-purple-900/50" onclick="openLightbox(this)">
+                <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=80" 
+                     class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" 
+                     alt="Kamar Tidur"
+                     onerror="this.src='https://placehold.co/800x600/1e022b/ffffff?text=Kamar+Tidur'">
+                <div class="absolute inset-0 bg-gradient-to-t from-purple-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                    <div>
+                        <span class="text-xs text-gold-400 uppercase tracking-widest font-semibold">Istirahat</span>
+                        <h4 class="text-lg font-bold text-white">Kamar Tidur</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="group relative rounded-2xl overflow-hidden aspect-[4/3] cursor-pointer shadow-lg border border-purple-900/50" onclick="openLightbox(this)">
+                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80" 
+                     class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" 
+                     alt="Area BBQ"
+                     onerror="this.src='https://placehold.co/800x600/1e022b/ffffff?text=Area+BBQ'">
+                <div class="absolute inset-0 bg-gradient-to-t from-purple-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                    <div>
+                        <span class="text-xs text-gold-400 uppercase tracking-widest font-semibold">Outdoor</span>
+                        <h4 class="text-lg font-bold text-white">Area BBQ</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="group relative rounded-2xl overflow-hidden aspect-[4/3] cursor-pointer shadow-lg border border-purple-900/50" onclick="openLightbox(this)">
+                <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80" 
+                     class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" 
+                     alt="Dapur"
+                     onerror="this.src='https://placehold.co/800x600/1e022b/ffffff?text=Dapur'">
+                <div class="absolute inset-0 bg-gradient-to-t from-purple-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                    <div>
+                        <span class="text-xs text-gold-400 uppercase tracking-widest font-semibold">Masak</span>
+                        <h4 class="text-lg font-bold text-white">Dapur</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="group relative rounded-2xl overflow-hidden aspect-[4/3] cursor-pointer shadow-lg border border-purple-900/50" onclick="openLightbox(this)">
+                <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80" 
+                     class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" 
+                     alt="Halaman Villa"
+                     onerror="this.src='https://placehold.co/800x600/1e022b/ffffff?text=Halaman+Villa'">
+                <div class="absolute inset-0 bg-gradient-to-t from-purple-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                    <div>
+                        <span class="text-xs text-gold-400 uppercase tracking-widest font-semibold">Kebersamaan</span>
+                        <h4 class="text-lg font-bold text-white">Halaman Villa</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="group relative rounded-2xl overflow-hidden aspect-[4/3] cursor-pointer shadow-lg border border-purple-900/50" onclick="openLightbox(this)">
+                <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=800&q=80" 
+                     class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" 
+                     alt="Area Parkir"
+                     onerror="this.src='https://placehold.co/800x600/1e022b/ffffff?text=Area+Parkir'">
+                <div class="absolute inset-0 bg-gradient-to-t from-purple-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                    <div>
+                        <span class="text-xs text-gold-400 uppercase tracking-widest font-semibold">Fasilitas</span>
+                        <h4 class="text-lg font-bold text-white">Area Parkir</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 7 (Featured Span) -->
+            <div class="group relative rounded-2xl overflow-hidden aspect-[4/3] sm:col-span-2 lg:col-span-3 cursor-pointer shadow-lg border border-purple-900/50" onclick="openLightbox(this)">
+                <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80" 
+                     class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" 
+                     alt="Aktivitas Gathering"
+                     onerror="this.src='https://placehold.co/1200x600/1e022b/ffffff?text=Aktivitas+Gathering'">
+                <div class="absolute inset-0 bg-gradient-to-t from-purple-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                    <div>
+                        <span class="text-xs text-gold-400 uppercase tracking-widest font-semibold">Aktivitas</span>
+                        <h4 class="text-lg font-bold text-white">Aktivitas Gathering & Reuni</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox Modal -->
+<div id="lightbox" class="fixed inset-0 bg-black/95 z-50 hidden flex flex-col items-center justify-center p-4" onclick="closeLightbox()">
+    <button class="absolute top-6 right-6 text-white hover:text-gold-500 transition-colors text-3xl" aria-label="Close Lightbox">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="max-w-4xl w-full flex items-center justify-center" onclick="event.stopPropagation()">
+        <img id="lightboxImg" src="" class="max-h-[85vh] max-w-full rounded-lg object-contain" alt="Lightbox Main">
+    </div>
+    <p id="lightboxCaption" class="text-white mt-4 font-serif text-lg text-center"></p>
+</div>
+
+<section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <span class="inline-flex items-center space-x-2 bg-purple-900/80 text-gold-500 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider">
+            <i class="fa-solid fa-star"></i> <span>Ulasan Tamu</span>
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white">Apa Kata Rombongan Yang Menginap?</h2>
+        <p class="text-stone-300">
+            Berikut testimonial asli dari rombongan keluarga besar dan komunitas yang telah merasakan langsung kenyamanan Villa Aurora.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Testi 1 -->
+        <div class="bg-purple-900/20 p-8 rounded-2xl border border-purple-900/50 relative flex flex-col justify-between">
+            <div class="space-y-4">
+                <div class="flex items-center space-x-1 text-gold-500 text-sm">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <p class="text-stone-300 italic text-sm sm:text-base leading-relaxed">
+                    "Sangat cocok untuk acara keluarga besar. Kamar tidur bersih, tempatnya sejuk sekali, dan pelayanannya ramah."
+                </p>
+            </div>
+            <div class="mt-8 flex items-center space-x-3 border-t border-purple-900/60 pt-4">
+                <div class="w-10 h-10 rounded-full bg-purple-800 text-gold-500 flex items-center justify-center font-bold font-serif">
+                    S
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-white">Suryo Utomo</h4>
+                    <span class="text-xs text-stone-400">Family Gathering</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testi 2 -->
+        <div class="bg-purple-900/20 p-8 rounded-2xl border border-purple-900/50 relative flex flex-col justify-between">
+            <div class="space-y-4">
+                <div class="flex items-center space-x-1 text-gold-500 text-sm">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <p class="text-stone-300 italic text-sm sm:text-base leading-relaxed">
+                    "Area kumpulnya luas dan fasilitas lengkap. Kami sekeluarga tidak bosan karena bisa main game dan bercengkerama bersama dengan leluasa."
+                </p>
+            </div>
+            <div class="mt-8 flex items-center space-x-3 border-t border-purple-900/60 pt-4">
+                <div class="w-10 h-10 rounded-full bg-purple-800 text-gold-500 flex items-center justify-center font-bold font-serif">
+                    M
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-white">Maya Indah</h4>
+                    <span class="text-xs text-stone-400">Arisan Rombongan</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testi 3 -->
+        <div class="bg-purple-900/20 p-8 rounded-2xl border border-purple-900/50 relative flex flex-col justify-between">
+            <div class="space-y-4">
+                <div class="flex items-center space-x-1 text-gold-500 text-sm">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <p class="text-stone-300 italic text-sm sm:text-base leading-relaxed">
+                    "Karaoke dan BBQ menjadi favorit seluruh anggota keluarga. Anak-anak suka sekali main di taman hijaunya yang asri."
+                </p>
+            </div>
+            <div class="mt-8 flex items-center space-x-3 border-t border-purple-900/60 pt-4">
+                <div class="w-10 h-10 rounded-full bg-purple-800 text-gold-500 flex items-center justify-center font-bold font-serif">
+                    A
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-white">Andi Wijaya</h4>
+                    <span class="text-xs text-stone-400">Reuni Alumni</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="faq" class="py-24 bg-purple-900/30 border-y border-purple-900/60">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center space-y-4 mb-16">
+            <span class="inline-flex items-center space-x-2 bg-gold-500/10 text-gold-400 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider">
+                <i class="fa-solid fa-circle-question"></i> <span>Tanya Jawab</span>
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white">Pertanyaan Sering Diajukan</h2>
+            <p class="text-stone-300">
+                Temukan jawaban cepat atas pertanyaan umum seputar kebijakan menginap dan fasilitas kami.
+            </p>
+        </div>
+
+        <!-- FAQ Accordion Container -->
+        <div class="space-y-4">
+            <!-- FAQ 1 -->
+            <div class="bg-purple-950 border border-purple-900 rounded-xl overflow-hidden transition-all duration-300">
+                <button class="w-full text-left p-6 flex items-center justify-between focus:outline-none" onclick="toggleFaq(this)">
+                    <span class="text-base sm:text-lg font-bold text-white">Berapa kapasitas maksimal villa?</span>
+                    <i class="fa-solid fa-chevron-down text-gold-500 transition-transform duration-300"></i>
+                </button>
+                <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                    <div class="p-6 pt-0 text-stone-400 text-sm leading-relaxed border-t border-purple-900/40">
+                        Villa kami dirancang khusus untuk rombongan keluarga besar dan dapat menampung secara nyaman hingga 20 orang. Lebih dari itu harap dikoordinasikan terlebih dahulu dengan admin.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="bg-purple-950 border border-purple-900 rounded-xl overflow-hidden transition-all duration-300">
+                <button class="w-full text-left p-6 flex items-center justify-between focus:outline-none" onclick="toggleFaq(this)">
+                    <span class="text-base sm:text-lg font-bold text-white">Apakah boleh membawa alat BBQ sendiri?</span>
+                    <i class="fa-solid fa-chevron-down text-gold-500 transition-transform duration-300"></i>
+                </button>
+                <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                    <div class="p-6 pt-0 text-stone-400 text-sm leading-relaxed border-t border-purple-900/40">
+                        Kami sudah menyediakan paket alat BBQ yang cukup lengkap di villa untuk kemudahan Anda. Namun, Anda juga diperbolehkan untuk membawa perlengkapan tambahan atau bumbu khusus sendiri dari rumah.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="bg-purple-950 border border-purple-900 rounded-xl overflow-hidden transition-all duration-300">
+                <button class="w-full text-left p-6 flex items-center justify-between focus:outline-none" onclick="toggleFaq(this)">
+                    <span class="text-base sm:text-lg font-bold text-white">Apakah tersedia karaoke?</span>
+                    <i class="fa-solid fa-chevron-down text-gold-500 transition-transform duration-300"></i>
+                </button>
+                <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                    <div class="p-6 pt-0 text-stone-400 text-sm leading-relaxed border-t border-purple-900/40">
+                        Ya, betul sekali! Kami menyediakan sistem hiburan karaoke set lengkap dengan layar TV besar di ruang kumpul keluarga utama gratis untuk menghibur seluruh rombongan Anda selama menginap.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="bg-purple-950 border border-purple-900 rounded-xl overflow-hidden transition-all duration-300">
+                <button class="w-full text-left p-6 flex items-center justify-between focus:outline-none" onclick="toggleFaq(this)">
+                    <span class="text-base sm:text-lg font-bold text-white">Apakah cukup untuk beberapa mobil?</span>
+                    <i class="fa-solid fa-chevron-down text-gold-500 transition-transform duration-300"></i>
+                </button>
+                <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                    <div class="p-6 pt-0 text-stone-400 text-sm leading-relaxed border-t border-purple-900/40">
+                        Ya. Kami menyediakan area parkir pribadi yang luas, aman, dan mudah diakses. Parkir kami muat untuk beberapa mobil keluarga sekaligus dalam satu waktu tanpa mengganggu akses jalan umum.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="bg-purple-950 border border-purple-900 rounded-xl overflow-hidden transition-all duration-300">
+                <button class="w-full text-left p-6 flex items-center justify-between focus:outline-none" onclick="toggleFaq(this)">
+                    <span class="text-base sm:text-lg font-bold text-white">Apakah bisa check in malam?</span>
+                    <i class="fa-solid fa-chevron-down text-gold-500 transition-transform duration-300"></i>
+                </button>
+                <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                    <div class="p-6 pt-0 text-stone-400 text-sm leading-relaxed border-t border-purple-900/40">
+                        Bisa dikoordinasikan terlebih dahulu. Harap menginformasikan perkiraan jam kedatangan Anda kepada tim admin kami agar kami dapat mengoordinasikan tim lapangan untuk menyambut Anda saat check-in.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+        <!-- Contact Info column -->
+        <div class="lg:col-span-5 space-y-8">
+            <div class="space-y-4">
+                <span class="inline-flex items-center space-x-2 bg-purple-900/80 text-gold-500 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider">
+                    <i class="fa-solid fa-address-card"></i> <span>Hubungi Kami</span>
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white">Mari Mulai Rencana Liburan Anda</h2>
+                <p class="text-stone-300">
+                    Kami selalu senang membantu menjawab kebutuhan penginapan Anda. Hubungi kami melalui kontak resmi di bawah ini.
+                </p>
+            </div>
+
+            <!-- Contact channels -->
+            <div class="space-y-4">
+                <a href="https://wa.me/6281359815703" target="_blank" rel="noopener" class="flex items-center space-x-4 p-4 rounded-xl bg-purple-900/20 border border-purple-900/50 hover:border-gold-500 transition-all group">
+                    <div class="w-12 h-12 rounded-lg bg-green-500/10 text-green-500 flex items-center justify-center text-xl shrink-0 group-hover:bg-green-500 group-hover:text-white transition-all">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <div>
+                        <span class="block text-xs text-stone-400">WhatsApp Admin</span>
+                        <span class="block text-sm font-bold text-white">0813-5981-5703</span>
+                    </div>
+                </a>
+
+                <a href="https://www.instagram.com/aurora.villabatu" target="_blank" rel="noopener" class="flex items-center space-x-4 p-4 rounded-xl bg-purple-900/20 border border-purple-900/50 hover:border-gold-500 transition-all group">
+                    <div class="w-12 h-12 rounded-lg bg-pink-500/10 text-pink-500 flex items-center justify-center text-xl shrink-0 group-hover:bg-pink-500 group-hover:text-white transition-all">
+                        <i class="fa-brands fa-instagram"></i>
+                    </div>
+                    <div>
+                        <span class="block text-xs text-stone-400">Instagram Official</span>
+                        <span class="block text-sm font-bold text-white">@aurora.villabatu</span>
+                    </div>
+                </a>
+
+                <a href="https://maps.app.goo.gl/H583Tc6mFuDVbM4a7" target="_blank" rel="noopener" class="flex items-center space-x-4 p-4 rounded-xl bg-purple-900/20 border border-purple-900/50 hover:border-gold-500 transition-all group">
+                    <div class="w-12 h-12 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center text-xl shrink-0 group-hover:bg-blue-500 group-hover:text-white transition-all">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                    </div>
+                    <div>
+                        <span class="block text-xs text-stone-400">Alamat Lokasi</span>
+                        <span class="block text-sm font-bold text-white">Villa Aurora Emerald Batu L-11</span>
+                    </div>
+                </a>
+
+                <a href="mailto:aurora.villabatu@gmail.com" class="flex items-center space-x-4 p-4 rounded-xl bg-purple-900/20 border border-purple-900/50 hover:border-gold-500 transition-all group">
+                    <div class="w-12 h-12 rounded-lg bg-gold-500/10 text-gold-500 flex items-center justify-center text-xl shrink-0 group-hover:bg-gold-500 group-hover:text-white transition-all">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div>
+                        <span class="block text-xs text-stone-400">Email Resmi</span>
+                        <span class="block text-sm font-bold text-white">aurora.villabatu@gmail.com</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Interactive Embed Map -->
+        <div class="lg:col-span-7 h-full min-h-[400px] w-full rounded-2xl overflow-hidden border border-purple-900/60 shadow-2xl relative">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.9947212142015!2d112.5599964757515!3d-7.895619078556633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9a10d4ef735cbb3%3A0xd606fef9fc9ca2fc!2sVilla%20Aurora%20Emerald%20Batu%20L-11!5e0!3m2!1sen!2sid!4v1781498979696!5m2!1sen!2sid" 
+                    class="absolute inset-0 w-full h-full border-0" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+</section>
+
+<section id="booking" class="py-24 bg-gradient-to-b from-purple-950 to-purple-900 relative overflow-hidden border-t border-purple-900/60">
+    <!-- Decorative background shape -->
+    <div class="absolute -right-1/4 -bottom-1/4 w-1/2 h-1/2 bg-gold-600/10 rounded-full blur-3xl z-0"></div>
+    <div class="absolute -left-1/4 -top-1/4 w-1/2 h-1/2 bg-purple-800/20 rounded-full blur-3xl z-0"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <!-- Booking CTA Left -->
+            <div class="lg:col-span-6 space-y-6">
+                <span class="inline-flex items-center space-x-2 bg-gold-500/15 text-gold-400 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider">
+                    <i class="fa-solid fa-hotel"></i> <span>Dapatkan Penawaran</span>
+                </span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white leading-tight">
+                    Siapkan Liburan dan Gathering Terbaik Anda di Kota Batu
+                </h2>
+                <p class="text-stone-300 leading-relaxed text-sm sm:text-base">
+                    Isi formulir ringkas di samping untuk memperkirakan biaya liburan Anda atau langsung terhubung dengan layanan CS kami guna memblokir tanggal liburan impian Anda.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="https://wa.me/6281359815703" target="_blank" rel="noopener" class="bg-purple-800 hover:bg-purple-700 text-white font-semibold px-8 py-4 rounded-xl transition-all text-center flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Hubungi WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <!-- Booking Interactive Form Widget -->
+            <div class="lg:col-span-6 bg-purple-900/50 backdrop-blur-xl border border-purple-800/40 p-6 sm:p-8 rounded-2xl shadow-2xl">
+                <h3 class="text-xl font-serif font-bold text-white mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-calculator text-gold-500"></i> Kirim Form Booking
+                </h3>
+                <form id="bookingForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                    <div>
+                        <label for="bookingName" class="block text-xs font-semibold uppercase tracking-wider text-stone-400 mb-1.5">Nama Lengkap</label>
+                        <input type="text" id="bookingName" required class="w-full bg-purple-950 border border-purple-900 focus:border-gold-500 rounded-lg p-3 text-sm text-white focus:outline-none transition-all" placeholder="Contoh: Budi Santoso">
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="bookingCheckIn" class="block text-xs font-semibold uppercase tracking-wider text-stone-400 mb-1.5">Tanggal Check-In</label>
+                            <input type="date" id="bookingCheckIn" required class="w-full bg-purple-950 border border-purple-900 focus:border-gold-500 rounded-lg p-3 text-sm text-white focus:outline-none transition-all">
+                        </div>
+                        <div>
+                            <label for="bookingCheckOut" class="block text-xs font-semibold uppercase tracking-wider text-stone-400 mb-1.5">Tanggal Check-Out</label>
+                            <input type="date" id="bookingCheckOut" required class="w-full bg-purple-950 border border-purple-900 focus:border-gold-500 rounded-lg p-3 text-sm text-white focus:outline-none transition-all">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="bookingGuests" class="block text-xs font-semibold uppercase tracking-wider text-stone-400 mb-1.5">Jumlah Orang (Rombongan)</label>
+                        <select id="bookingGuests" class="w-full bg-purple-950 border border-purple-900 focus:border-gold-500 rounded-lg p-3 text-sm text-white focus:outline-none transition-all">
+                            <option value="1-5">1 - 5 Orang</option>
+                            <option value="6-10">6 - 10 Orang</option>
+                            <option value="11-15">11 - 15 Orang</option>
+                            <option value="16-20" selected>16 - 20 Orang</option>
+                            <option value="20+">Lebih dari 20 Orang</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="bookingNotes" class="block text-xs font-semibold uppercase tracking-wider text-stone-400 mb-1.5">Catatan Tambahan (Opsional)</label>
+                        <textarea id="bookingNotes" rows="3" class="w-full bg-purple-950 border border-purple-900 focus:border-gold-500 rounded-lg p-3 text-sm text-white focus:outline-none transition-all resize-none" placeholder="Contoh: Butuh extra bed, sewa alat BBQ tambahan, dll..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-gold-500 hover:bg-gold-600 text-purple-950 font-bold py-4 rounded-xl shadow-lg shadow-gold-500/10 hover:shadow-gold-500/20 transition-all duration-300 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Kirim Ke WhatsApp Admin
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-purple-950 border-t border-purple-900/60 py-12 text-sm text-stone-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+        <!-- Brand -->
+        <div class="md:col-span-4 space-y-4">
+            <a href="#" class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-full bg-gold-600 flex items-center justify-center text-white">
+                    <i class="fa-solid fa-hotel text-sm"></i>
+                </div>
+                <div>
+                    <span class="block text-base font-serif font-bold text-white tracking-wide leading-none">Villa Aurora</span>
+                    <span class="block text-xs text-gold-500 uppercase tracking-widest mt-0.5">Emerald Batu</span>
+                </div>
+            </a>
+            <p class="text-xs text-stone-400">
+                Pilihan tepat akomodasi rombongan & kumpul keluarga besar di kawasan Kota Batu, Jawa Timur yang asri dan sejuk.
+            </p>
+        </div>
+
+        <!-- Links -->
+        <div class="md:col-span-4 flex flex-wrap justify-start md:justify-center gap-6">
+            <a href="#tentang" class="hover:text-gold-500 transition-colors">Tentang</a>
+            <a href="#kelebihan" class="hover:text-gold-500 transition-colors">Kelebihan</a>
+            <a href="#fasilitas" class="hover:text-gold-500 transition-colors">Fasilitas</a>
+            <a href="#gallery" class="hover:text-gold-500 transition-colors">Galeri</a>
+        </div>
+
+        <!-- Social Media & Copyright -->
+        <div class="md:col-span-4 flex flex-col items-start md:items-end space-y-4">
+            <div class="flex items-center space-x-4">
+                <a href="https://wa.me/6281359815703" target="_blank" rel="noopener" class="w-8 h-8 rounded-full bg-purple-900 hover:bg-gold-600 text-stone-300 hover:text-purple-950 flex items-center justify-center transition-all" aria-label="WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="https://www.instagram.com/aurora.villabatu" target="_blank" rel="noopener" class="w-8 h-8 rounded-full bg-purple-900 hover:bg-gold-600 text-stone-300 hover:text-purple-950 flex items-center justify-center transition-all" aria-label="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://maps.app.goo.gl/H583Tc6mFuDVbM4a7" target="_blank" rel="noopener" class="w-8 h-8 rounded-full bg-purple-900 hover:bg-gold-600 text-stone-300 hover:text-purple-950 flex items-center justify-center transition-all" aria-label="Google Maps">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                </a>
+            </div>
+            <p class="text-xs">&copy; 2026 Villa Aurora Emerald Batu. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Availability Modal -->
+<div id="availabilityModal" class="fixed inset-0 bg-black/85 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-purple-950 border border-purple-800 p-6 sm:p-8 rounded-2xl max-w-lg w-full shadow-2xl space-y-6 relative" onclick="event.stopPropagation()">
+        <button onclick="closeAvailabilityModal()" class="absolute top-4 right-4 text-stone-400 hover:text-white transition-colors text-2xl" aria-label="Close Modal">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="space-y-2">
+            <h3 class="text-xl font-serif font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-calendar-check text-gold-500"></i> Cek Ketersediaan Tanggal
+            </h3>
+            <p class="text-xs text-stone-400 leading-relaxed">
+                Silakan isi data rencana menginap Anda di bawah ini. Tim admin kami akan segera mengecek ketersediaan kamar pada tanggal yang Anda pilih.
+            </p>
+        </div>
+        <form id="checkAvailabilityForm" onsubmit="handleAvailabilitySubmit(event)" class="space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="checkInDate" class="block text-xs font-semibold uppercase tracking-wider text-stone-400 mb-1.5">Check-In</label>
+                    <input type="date" id="checkInDate" required class="w-full bg-purple-900 border border-purple-800 focus:border-gold-500 rounded-lg p-3 text-sm text-white focus:outline-none transition-all">
+                </div>
+                <div>
+                    <label for="checkOutDate" class="block text-xs font-semibold uppercase tracking-wider text-stone-400 mb-1.5">Check-Out</label>
+                    <input type="date" id="checkOutDate" required class="w-full bg-purple-900 border border-purple-800 focus:border-gold-500 rounded-lg p-3 text-sm text-white focus:outline-none transition-all">
+                </div>
+            </div>
+            <div>
+                <label for="guestRange" class="block text-xs font-semibold uppercase tracking-wider text-stone-400 mb-1.5">Jumlah Anggota Rombongan</label>
+                <select id="guestRange" class="w-full bg-purple-900 border border-purple-800 focus:border-gold-500 rounded-lg p-3 text-sm text-white focus:outline-none transition-all">
+                    <option value="1-5">1-5 Orang</option>
+                    <option value="6-10">6-10 Orang</option>
+                    <option value="11-15">11-15 Orang</option>
+                    <option value="16-20" selected>16-20 Orang</option>
+                    <option value="20+">Lebih dari 20 Orang</option>
+                </select>
+            </div>
+            <button type="submit" class="w-full bg-gold-500 hover:bg-gold-600 text-purple-950 font-bold py-4 rounded-xl shadow-lg transition-all duration-300">
+                Hubungi Admin Via WhatsApp
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Header Blur on Scroll
+    const header = document.getElementById('mainHeader');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('shadow-lg', 'bg-purple-950/95');
+        } else {
+            header.classList.remove('shadow-lg', 'bg-purple-950/95');
+        }
+    });
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when links are clicked
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+    });
+
+    // Lightbox Logic for Gallery
+    function openLightbox(element) {
+        const img = element.querySelector('img');
+        const caption = element.querySelector('h4') ? element.querySelector('h4').textContent : '';
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+
+        lightboxImg.src = img.src;
+        lightboxCaption.textContent = caption;
+        lightbox.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Stop scrolling on background
+    }
+
+    function closeLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        lightbox.classList.add('hidden');
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+
+    // FAQ Accordion Toggle
+    function toggleFaq(button) {
+        const accordionContent = button.nextElementSibling;
+        const icon = button.querySelector('i');
+        
+        // Toggle Active
+        if (accordionContent.style.maxHeight) {
+            accordionContent.style.maxHeight = null;
+            button.classList.remove('text-gold-500');
+            icon.style.transform = 'rotate(0deg)';
+        } else {
+            // Close other open panels optionally
+            const allPanels = document.querySelectorAll('#faq .max-h-0, #faq [style*="max-height"]');
+            allPanels.forEach(panel => {
+                panel.style.maxHeight = null;
+                const prevBtn = panel.previousElementSibling;
+                if (prevBtn) {
+                    prevBtn.classList.remove('text-gold-500');
+                    const otherIcon = prevBtn.querySelector('i');
+                    if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                }
+            });
+
+            // Open selected panel
+            accordionContent.style.maxHeight = accordionContent.scrollHeight + "px";
+            button.classList.add('text-gold-500');
+            icon.style.transform = 'rotate(180deg)';
+        }
+    }
+
+    // Availability Modal Functions
+    function openAvailabilityModal() {
+        document.getElementById('availabilityModal').classList.remove('hidden');
+        document.getElementById('availabilityModal').classList.add('flex');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeAvailabilityModal() {
+        document.getElementById('availabilityModal').classList.add('hidden');
+        document.getElementById('availabilityModal').classList.remove('flex');
+        document.body.style.overflow = '';
+    }
+
+    // Form Booking Submit Logic (Generate WhatsApp text link)
+    function handleFormSubmit(event) {
+        event.preventDefault();
+        const name = document.getElementById('bookingName').value;
+        const checkIn = document.getElementById('bookingCheckIn').value;
+        const checkOut = document.getElementById('bookingCheckOut').value;
+        const guests = document.getElementById('bookingGuests').value;
+        const notes = document.getElementById('bookingNotes').value || '-';
+
+        const message = `Halo Admin Villa Aurora Batu, saya ingin booking dengan detail berikut:\n\n` +
+                        `👤 Nama: ${name}\n` +
+                        `📅 Check-In: ${checkIn}\n` +
+                        `📅 Check-Out: ${checkOut}\n` +
+                        `👥 Rombongan: ${guests} Orang\n` +
+                        `📝 Catatan Tambahan: ${notes}\n\n` +
+                        `Mohon info ketersediaan & total harganya. Terima kasih!`;
+
+        const encodedMessage = encodeURIComponent(message);
+        const waLink = `https://wa.me/6281359815703?text=${encodedMessage}`;
+        window.open(waLink, '_blank');
+    }
+
+    // Form Availability Submit Logic (Generate WhatsApp text link)
+    function handleAvailabilitySubmit(event) {
+        event.preventDefault();
+        const checkIn = document.getElementById('checkInDate').value;
+        const checkOut = document.getElementById('checkOutDate').value;
+        const guests = document.getElementById('guestRange').value;
+
+        const message = `Halo Admin Villa Aurora Batu, saya ingin cek ketersediaan kamar pada tanggal berikut:\n\n` +
+                        `📅 Tanggal Check-In: ${checkIn}\n` +
+                        `📅 Tanggal Check-Out: ${checkOut}\n` +
+                        `👥 Rombongan: ${guests} Orang\n\n` +
+                        `Apakah pada tanggal tersebut unit villa masih kosong? Terima kasih!`;
+
+        const encodedMessage = encodeURIComponent(message);
+        const waLink = `https://wa.me/6281359815703?text=${encodedMessage}`;
+        window.open(waLink, '_blank');
+        closeAvailabilityModal();
+    }
+</script>
+
+</body>
+</html>
