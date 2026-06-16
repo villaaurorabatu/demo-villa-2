@@ -45,7 +45,6 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* Custom Smooth Fade In and Panning animations */
         @keyframes subtleZoom {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -63,7 +62,7 @@
             display: flex;
             pointer-events: none;
             animation: fadeOutContainer 0.1s forwards;
-            animation-delay: 2.0s; /* Menghilangkan container setelah panel selesai terbuka */
+            animation-delay: 2.0s;
         }
         .curtain-panel {
             width: 50%;
@@ -100,7 +99,7 @@
             to { visibility: hidden; width: 0; height: 0; }
         }
 
-        /* Reveal Animation */
+        /* Scroll Reveal Transitions */
         [data-reveal] {
             opacity: 0;
             transform: translateY(30px);
@@ -111,7 +110,6 @@
             transform: translateY(0);
         }
 
-        /* Slide In Animation */
         [data-slide-in] {
             opacity: 0;
             transform: translateX(40px);
@@ -122,7 +120,6 @@
             transform: translateX(0);
         }
 
-        /* Fade In Animation */
         [data-fade-in] {
             opacity: 0;
             transition: all 1.2s ease-in-out;
@@ -130,33 +127,67 @@
         [data-fade-in].active {
             opacity: 1;
         }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF8F5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D5C3AF;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #BFA58A;
+        }
     </style>
 </head>
 <body class="bg-sand-50 text-charcoal font-sans antialiased selection:bg-sand-300 selection:text-charcoal overflow-x-hidden">
 
     <!-- Premium Top Navigation -->
     <header class="fixed top-0 left-0 w-full z-50 transition-all duration-500 bg-sand-50/80 backdrop-blur-md border-b border-sand-200/50" id="mainHeader">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 py-5 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-4 md:px-12 py-4 flex items-center justify-between">
             <a href="#" class="font-serif text-2xl tracking-widest font-light uppercase text-charcoal hover:opacity-80 transition-opacity">
                 Aurora<span class="text-terracotta">.</span>
             </a>
             
-            <nav class="hidden md:flex items-center space-x-12 text-sm uppercase tracking-widest font-medium text-charcoal-muted">
-                <a href="#vibe" class="hover:text-charcoal transition-colors">The Vibe</a>
-                <a href="#spaces" class="hover:text-charcoal transition-colors">Showcase</a>
-                <a href="#timeline" class="hover:text-charcoal transition-colors">A Day At Aurora</a>
-                <a href="#testimonials" class="hover:text-charcoal transition-colors">Guest Note</a>
+            <nav class="hidden lg:flex items-center space-x-10 text-sm uppercase tracking-widest font-medium text-charcoal-muted">
+                <a href="#vibe" data-t="nav_vibe" class="hover:text-charcoal transition-colors">The Vibe</a>
+                <a href="#spaces" data-t="nav_showcase" class="hover:text-charcoal transition-colors">Showcase</a>
+                <a href="#timeline" data-t="nav_timeline" class="hover:text-charcoal transition-colors">A Day At Aurora</a>
             </nav>
             
-            <div>
-                <a href="#book" class="bg-charcoal text-white hover:bg-terracotta hover:text-white px-6 py-2.5 text-xs uppercase tracking-widest font-medium transition-all duration-300 rounded-none shadow-sm">
+            <div class="flex items-center space-x-2 md:space-x-4">
+                <!-- Language Selector -->
+                <div class="relative">
+                    <select id="langSelector" onchange="changeLanguage(this.value)" 
+                            class="bg-transparent border border-sand-300 py-2 px-2 text-[10px] md:text-xs uppercase tracking-widest font-semibold text-charcoal focus:outline-none focus:border-terracotta transition-colors cursor-pointer rounded-none">
+                        <option value="ID">ID</option>
+                        <option value="EN">EN</option>
+                    </select>
+                </div>
+
+                <!-- Currency Selector -->
+                <div class="relative">
+                    <select id="currencySelector" onchange="changeCurrency(this.value)" 
+                            class="bg-transparent border border-sand-300 py-2 px-2 text-[10px] md:text-xs uppercase tracking-widest font-semibold text-charcoal focus:outline-none focus:border-terracotta transition-colors cursor-pointer rounded-none">
+                        <option value="IDR">IDR (Rp)</option>
+                        <option value="USD">USD ($)</option>
+                        <option value="SGD">SGD (S$)</option>
+                        <option value="AUD">AUD (A$)</option>
+                    </select>
+                </div>
+
+                <a href="#book" data-t="nav_book_btn" class="bg-charcoal text-white hover:bg-terracotta hover:text-white px-4 md:px-6 py-2.5 text-[10px] md:text-xs uppercase tracking-widest font-medium transition-all duration-300 rounded-none shadow-sm">
                     Book Stay
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- Split Curtain Overlay (Membelah saat pertama kali dibuka) -->
+    <!-- Split Curtain Overlay -->
     <div id="curtain-container">
         <div class="curtain-panel curtain-left">
             <span class="font-serif text-3xl tracking-widest font-light uppercase text-charcoal/30">Aurora</span>
@@ -168,33 +199,30 @@
 
     <!-- Immersive Hero Section -->
     <section class="relative h-screen flex items-center justify-center overflow-hidden">
-        <!-- Background Loop Simulation (High quality visual container with panning fallback) -->
         <div class="absolute inset-0 z-0 bg-charcoal">
-            <!-- Simulated Architectural Cinematics: Slow-paced light, wind, linen -->
             <div class="absolute inset-0 opacity-40 mix-blend-multiply animate-subtle-zoom">
                 <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1920&q=80" 
                      alt="Minimalist Architecture Light Play" 
                      class="w-full h-full object-cover">
             </div>
-            <!-- Overlay Gradient for editorial readability -->
             <div class="absolute inset-0 bg-gradient-to-t from-sand-50 via-transparent to-black/30 z-10"></div>
         </div>
 
         <div class="relative z-20 text-center max-w-4xl px-6 flex flex-col items-center mt-12">
-            <span class="text-xs md:text-sm uppercase tracking-[0.3em] text-white/80 mb-6 block font-medium">Batu, East Java</span>
-            <h1 class="font-serif text-5xl md:text-8xl font-extralight text-white leading-none tracking-tight mb-8">
+            <span data-t="hero_location" class="text-xs md:text-sm uppercase tracking-[0.3em] text-white/80 mb-6 block font-medium">Batu, East Java</span>
+            <h1 data-t="hero_title" class="font-serif text-5xl md:text-8xl font-extralight text-white leading-none tracking-tight mb-8">
                 The Aesthetic <br>
                 <span class="italic font-light text-sand-100">Minimalist Sanctuary</span>
             </h1>
-            <p class="text-sand-100 font-light text-sm md:text-lg max-w-xl leading-relaxed tracking-wide opacity-90 mb-12">
+            <p data-t="hero_desc" class="text-sand-100 font-light text-sm md:text-lg max-w-xl leading-relaxed tracking-wide opacity-90 mb-12">
                 Hadirkan ketenangan jiwa di kaki Gunung Panderman. Sudut-sudut berbalut cahaya alami, sentuhan linen lembut, dan ketenangan yang merangkul Anda di Kota Batu.
             </p>
             <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
-                <a href="#book" class="border border-white text-white hover:bg-white hover:text-charcoal px-8 py-4 text-xs uppercase tracking-widest font-semibold transition-all duration-300">
+                <a href="#book" data-t="hero_btn_book" class="border border-white text-white hover:bg-white hover:text-charcoal px-8 py-4 text-xs uppercase tracking-widest font-semibold transition-all duration-300">
                     Mulai Reservasi
                 </a>
                 <a href="#vibe" class="bg-transparent text-white/90 hover:text-white flex items-center justify-center space-x-2 text-xs uppercase tracking-widest font-semibold py-4">
-                    <span>Jelajahi Suasana</span>
+                    <span data-t="hero_btn_discover">Jelajahi Suasana</span>
                     <i data-lucide="arrow-down" class="w-4 h-4 animate-bounce"></i>
                 </a>
             </div>
@@ -202,55 +230,54 @@
 
         <!-- Scroll Indicator -->
         <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center">
-            <span class="text-[10px] uppercase tracking-[0.25em] text-charcoal mb-2">Scroll to discover</span>
+            <span data-t="hero_scroll" class="text-[10px] uppercase tracking-[0.25em] text-charcoal mb-2">Scroll to discover</span>
             <div class="w-[1px] h-12 bg-charcoal/20 relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-full h-1/2 bg-charcoal animate-bounce"></div>
             </div>
         </div>
     </section>
 
-    <!-- Section: The Architecture & Vibe with Reveal Animation -->
+    <!-- Section: The Architecture & Vibe -->
     <section id="vibe" class="py-24 md:py-32 bg-sand-100 relative">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
                 
                 <!-- Left Narrative Block -->
                 <div class="lg:col-span-5 space-y-8" data-reveal>
-                    <span class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold block">The Vibe & Philosophy</span>
-                    <h2 class="font-serif text-4xl md:text-5xl font-light text-charcoal leading-tight">
+                    <span data-t="vibe_subtitle" class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold block">The Vibe & Philosophy</span>
+                    <h2 data-t="vibe_title" class="font-serif text-4xl md:text-5xl font-light text-charcoal leading-tight">
                         Dirancang untuk mengistirahatkan pikiran yang bising.
                     </h2>
-                    <p class="text-charcoal-muted leading-relaxed font-light text-base">
+                    <p data-t="vibe_desc_1" class="text-charcoal-muted leading-relaxed font-light text-base">
                         Villa Aurora bukan sekadar penginapan dengan dinding beton yang kaku. Kami mengkurasi ruang di mana cahaya matahari pagi jatuh dengan lembut di atas lantai semen ekspos, dan angin sore sejuk kota Batu menerbangkan tirai linen dengan ritme yang menenangkan.
                     </p>
-                    <p class="text-charcoal-muted leading-relaxed font-light text-base">
+                    <p data-t="vibe_desc_2" class="text-charcoal-muted leading-relaxed font-light text-base">
                         Setiap sudut adalah kanvas minimalis yang estetik dan ramah kamera. Memungkinkan Anda mengabadikan momen berharga, atau sekadar menyeduh kopi hangat sembari menikmati siluet pegunungan dari balik jendela kaca raksasa kami.
                     </p>
                     
                     <!-- Highlight icons -->
                     <div class="grid grid-cols-2 gap-6 pt-6 border-t border-sand-200">
                         <div class="space-y-2">
-                            <h4 class="font-serif text-lg font-medium text-charcoal">Natural Light</h4>
-                            <p class="text-xs text-charcoal-muted font-light leading-relaxed">Pencahayaan alami dari celah arsitektural yang presisi.</p>
+                            <h4 data-t="vibe_feature_1_title" class="font-serif text-lg font-medium text-charcoal">Natural Light</h4>
+                            <p data-t="vibe_feature_1_desc" class="text-xs text-charcoal-muted font-light leading-relaxed">Pencahayaan alami dari celah arsitektural yang presisi.</p>
                         </div>
                         <div class="space-y-2">
-                            <h4 class="font-serif text-lg font-medium text-charcoal">Instagramable Corner</h4>
-                            <p class="text-xs text-charcoal-muted font-light leading-relaxed">Setiap sudut terkurasi indah untuk mata estetis Anda.</p>
+                            <h4 data-t="vibe_feature_2_title" class="font-serif text-lg font-medium text-charcoal">Instagramable Corner</h4>
+                            <p data-t="vibe_feature_2_desc" class="text-xs text-charcoal-muted font-light leading-relaxed">Setiap sudut terkurasi indah untuk mata estetis Anda.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right Visual block (Asymmetric overlap) with Reveal Animation -->
+                <!-- Right Visual block (Asymmetric overlap) -->
                 <div class="lg:col-span-7 relative" data-reveal>
                     <div class="aspect-[4/5] md:aspect-[16/10] lg:aspect-[4/5] bg-sand-200 relative overflow-hidden group shadow-lg">
                         <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" 
                              alt="Luxury minimalist villa interior" 
                              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                         <div class="absolute bottom-6 left-6 bg-white/90 backdrop-blur-sm p-6 max-w-xs shadow-sm">
-                            <p class="font-serif text-lg italic text-charcoal">"Ketenangan sejati ditemukan saat kita kembali ke hal-hal sederhana yang fungsional."</p>
+                            <p data-t="vibe_quote" class="font-serif text-lg italic text-charcoal">"Ketenangan sejati ditemukan saat kita kembali ke hal-hal sederhana yang fungsional."</p>
                         </div>
                     </div>
-                    <!-- Small floating overlay image -->
                     <div class="absolute -bottom-10 -left-6 w-1/3 aspect-square bg-sand-300 hidden md:block overflow-hidden shadow-2xl border-4 border-sand-100" data-reveal>
                         <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=500&q=80" 
                              alt="Minimal detail stay close-up" 
@@ -262,87 +289,86 @@
         </div>
     </section>
 
-    <!-- Section: Visual Space Showcase (Asymmetric Masonry Grid) with Reveal Animation -->
+    <!-- Section: Visual Space Showcase (Asymmetric Masonry Grid) -->
     <section id="spaces" class="py-24 md:py-32 bg-sand-50">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             
             <div class="text-center max-w-2xl mx-auto mb-20 space-y-4" data-reveal>
-                <span class="text-xs uppercase tracking-[0.2em] text-olive font-semibold block">Curated Spaces</span>
-                <h2 class="font-serif text-4xl md:text-5xl font-light text-charcoal">Sudut-Sudut Estetis Villa Aurora</h2>
+                <span data-t="spaces_subtitle" class="text-xs uppercase tracking-[0.2em] text-olive font-semibold block">Curated Spaces</span>
+                <h2 data-t="spaces_title" class="font-serif text-4xl md:text-5xl font-light text-charcoal">Sudut-Sudut Estetis Villa Aurora</h2>
                 <div class="w-12 h-[1px] bg-charcoal/30 mx-auto mt-6"></div>
-                <p class="text-charcoal-muted font-light text-sm max-w-md mx-auto">
+                <p data-t="spaces_desc" class="text-charcoal-muted font-light text-sm max-w-md mx-auto">
                     Tata letak asimetris yang dirancang khusus untuk memanjakan mata dan memberikan ruang bernapas yang lega.
                 </p>
             </div>
 
-            <!-- Asymmetric Masonry Grid with Reveal Animation -->
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
                 
-                <!-- Card 1: 5 Columns -->
+                <!-- Card 1 -->
                 <div class="md:col-span-7 flex flex-col justify-between group cursor-pointer" data-reveal>
                     <div class="overflow-hidden aspect-[16/10] bg-sand-200 shadow-sm relative">
                         <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=80" 
                              alt="The Sunken Lounge" 
                              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                            <span class="text-white text-xs uppercase tracking-widest">Detail area santai semi outdoor</span>
+                            <span data-t="spaces_c1_hover" class="text-white text-xs uppercase tracking-widest">Detail area santai semi outdoor</span>
                         </div>
                     </div>
                     <div class="mt-4">
-                        <span class="text-xs text-terracotta uppercase tracking-wider font-semibold">Living Area</span>
-                        <h3 class="font-serif text-2xl font-light text-charcoal mt-1">The Sunken Lounge</h3>
-                        <p class="text-xs text-charcoal-muted font-light mt-2 max-w-md">Ruang tengah lapang tanpa sekat dengan pencahayaan skylight eksklusif, sempurna untuk berkumpul hangat.</p>
+                        <span data-t="spaces_c1_tag" class="text-xs text-terracotta uppercase tracking-wider font-semibold">Living Area</span>
+                        <h3 data-t="spaces_c1_title" class="font-serif text-2xl font-light text-charcoal mt-1">The Sunken Lounge</h3>
+                        <p data-t="spaces_c1_desc" class="text-xs text-charcoal-muted font-light mt-2 max-w-md">Ruang tengah lapang tanpa sekat dengan pencahayaan skylight eksklusif, sempurna untuk berkumpul hangat.</p>
                     </div>
                 </div>
 
-                <!-- Card 2: 5 Columns right side (Tall) -->
+                <!-- Card 2 -->
                 <div class="md:col-span-5 flex flex-col justify-between group cursor-pointer md:mt-12" data-reveal>
                     <div class="overflow-hidden aspect-[4/5] bg-sand-200 shadow-sm relative">
                         <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80" 
                              alt="Master Oasis Bedroom" 
                              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                            <span class="text-white text-xs uppercase tracking-widest">Kasur King Koil & Linen Import</span>
+                            <span data-t="spaces_c2_hover" class="text-white text-xs uppercase tracking-widest">Kasur King Koil & Linen Import</span>
                         </div>
                     </div>
                     <div class="mt-4">
-                        <span class="text-xs text-terracotta uppercase tracking-wider font-semibold">Rest Sanctuary</span>
-                        <h3 class="font-serif text-2xl font-light text-charcoal mt-1">Master Oasis Bedroom</h3>
-                        <p class="text-xs text-charcoal-muted font-light mt-2">Kamar tidur utama dengan pemandangan pegunungan langsung dari bantal Anda. Sentuhan linen linen organik.</p>
+                        <span data-t="spaces_c2_tag" class="text-xs text-terracotta uppercase tracking-wider font-semibold">Rest Sanctuary</span>
+                        <h3 data-t="spaces_c2_title" class="font-serif text-2xl font-light text-charcoal mt-1">Master Oasis Bedroom</h3>
+                        <p data-t="spaces_c2_desc" class="text-xs text-charcoal-muted font-light mt-2">Kamar tidur utama dengan pemandangan pegunungan langsung dari bantal Anda. Sentuhan linen linen organik.</p>
                     </div>
                 </div>
 
-                <!-- Card 3: 4 Columns bottom left -->
+                <!-- Card 3 -->
                 <div class="md:col-span-4 flex flex-col justify-between group cursor-pointer" data-reveal>
                     <div class="overflow-hidden aspect-square bg-sand-200 shadow-sm relative">
                         <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80" 
                              alt="Minimalist Open Kitchen" 
                              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                            <span class="text-white text-xs uppercase tracking-widest">Peralatan masak lengkap & estetik</span>
+                            <span data-t="spaces_c3_hover" class="text-white text-xs uppercase tracking-widest">Peralatan masak lengkap & estetik</span>
                         </div>
                     </div>
                     <div class="mt-4">
-                        <span class="text-xs text-terracotta uppercase tracking-wider font-semibold">Communal Kitchen</span>
-                        <h3 class="font-serif text-2xl font-light text-charcoal mt-1">The Warm Kitchenette</h3>
-                        <p class="text-xs text-charcoal-muted font-light mt-2">Dapur berkonsep island kayu yang hangat, dilengkapi dengan alat seduh manual untuk barista pagi Anda.</p>
+                        <span data-t="spaces_c3_tag" class="text-xs text-terracotta uppercase tracking-wider font-semibold">Communal Kitchen</span>
+                        <h3 data-t="spaces_c3_title" class="font-serif text-2xl font-light text-charcoal mt-1">The Warm Kitchenette</h3>
+                        <p data-t="spaces_c3_desc" class="text-xs text-charcoal-muted font-light mt-2">Dapur berkonsep island kayu yang hangat, dilengkapi dengan alat seduh manual untuk barista pagi Anda.</p>
                     </div>
                 </div>
 
-                <!-- Card 4: 8 Columns bottom right (Wide) -->
+                <!-- Card 4 -->
                 <div class="md:col-span-8 flex flex-col justify-between group cursor-pointer" data-reveal>
                     <div class="overflow-hidden aspect-[16/9] bg-sand-200 shadow-sm relative">
                         <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80" 
                              alt="Al-Fresco Terrace" 
                              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                            <span class="text-white text-xs uppercase tracking-widest">Balkon outdoor & area BBQ</span>
+                            <span data-t="spaces_c4_hover" class="text-white text-xs uppercase tracking-widest">Balkon outdoor & area BBQ</span>
                         </div>
                     </div>
                     <div class="mt-4">
-                        <span class="text-xs text-terracotta uppercase tracking-wider font-semibold">Outdoor Living</span>
-                        <h3 class="font-serif text-2xl font-light text-charcoal mt-1">Al-Fresco Breeze Terrace</h3>
-                        <p class="text-xs text-charcoal-muted font-light mt-2">Balkon luar ruangan berlantai dek kayu dengan kursi malas bergaya Skandinavia untuk menikmati kabut senja Batu.</p>
+                        <span data-t="spaces_c4_tag" class="text-xs text-terracotta uppercase tracking-wider font-semibold">Outdoor Living</span>
+                        <h3 data-t="spaces_c4_title" class="font-serif text-2xl font-light text-charcoal mt-1">Al-Fresco Breeze Terrace</h3>
+                        <p data-t="spaces_c4_desc" class="text-xs text-charcoal-muted font-light mt-2">Balkon luar ruangan berlantai dek kayu dengan kursi malas bergaya Skandinavia untuk menikmati kabut senja Batu.</p>
                     </div>
                 </div>
 
@@ -350,32 +376,32 @@
         </div>
     </section>
 
-    <!-- Section: A Day at Villa Aurora (Story-driven Timeline) with Slide In Animation -->
+    <!-- Section: A Day at Villa Aurora (Story-driven Timeline) -->
     <section id="timeline" class="py-24 md:py-32 bg-sand-100 relative">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             
             <div class="text-center max-w-2xl mx-auto mb-20 space-y-4" data-reveal>
-                <span class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold block">A Day at Villa Aurora</span>
-                <h2 class="font-serif text-4xl md:text-5xl font-light text-charcoal">Menghayati Setiap Detik Waktu</h2>
+                <span data-t="timeline_subtitle" class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold block">A Day at Villa Aurora</span>
+                <h2 data-t="timeline_title" class="font-serif text-4xl md:text-5xl font-light text-charcoal">Menghayati Setiap Detik Waktu</h2>
                 <div class="w-12 h-[1px] bg-charcoal/30 mx-auto mt-6"></div>
-                <p class="text-charcoal-muted font-light text-sm max-w-md mx-auto">
+                <p data-t="timeline_desc" class="text-charcoal-muted font-light text-sm max-w-md mx-auto">
                     Bagaimana satu hari istimewa Anda akan terbentang di perlindungan estetis kami.
                 </p>
             </div>
 
-            <!-- Timeline Cards with Slide In Animation -->
+            <!-- Timeline Cards -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
                 
                 <!-- Morning -->
                 <div class="bg-sand-50 p-8 md:p-10 shadow-sm flex flex-col justify-between h-full border border-sand-200/50 hover:shadow-md transition-shadow" data-slide-in>
                     <div class="space-y-6">
                         <span class="font-serif text-5xl italic text-terracotta/40 block">08.00 AM</span>
-                        <h3 class="font-serif text-2xl font-light text-charcoal">Embun Pagi & Seduhan Kopi Balkon</h3>
-                        <p class="text-sm text-charcoal-muted leading-relaxed font-light">
+                        <h3 data-t="timeline_c1_title" class="font-serif text-2xl font-light text-charcoal">Embun Pagi & Seduhan Kopi Balkon</h3>
+                        <p data-t="timeline_c1_desc" class="text-sm text-charcoal-muted leading-relaxed font-light">
                             Bangun tanpa alarm bising. Sinar mentari menyelinap lembut dari celah jendela, mengundang Anda menyeduh V60 di balkon ditemani semilir dingin khas pegunungan Batu.
                         </p>
                     </div>
-                    <div class="mt-8 pt-6 border-t border-sand-200 text-xs text-charcoal-muted font-medium uppercase tracking-wider">
+                    <div data-t="timeline_c1_vibe" class="mt-8 pt-6 border-t border-sand-200 text-xs text-charcoal-muted font-medium uppercase tracking-wider">
                         Vibe: Tenang & Hangat
                     </div>
                 </div>
@@ -384,12 +410,12 @@
                 <div class="bg-sand-50 p-8 md:p-10 shadow-sm flex flex-col justify-between h-full border border-sand-200/50 hover:shadow-md transition-shadow" data-slide-in>
                     <div class="space-y-6">
                         <span class="font-serif text-5xl italic text-olive/40 block">02.00 PM</span>
-                        <h3 class="font-serif text-2xl font-light text-charcoal">Estetika Cahaya & Lembar Buku</h3>
-                        <p class="text-sm text-charcoal-muted leading-relaxed font-light">
+                        <h3 data-t="timeline_c2_title" class="font-serif text-2xl font-light text-charcoal">Estetika Cahaya & Lembar Buku</h3>
+                        <p data-t="timeline_c2_desc" class="text-sm text-charcoal-muted leading-relaxed font-light">
                             Waktu di mana pencahayaan villa berada pada titik tercantik (Golden Hour siang). Sempurna untuk berfoto di sudut Sunken Lounge, membaca buku pilihan, atau berdiskusi santai di ruang tengah.
                         </p>
                     </div>
-                    <div class="mt-8 pt-6 border-t border-sand-200 text-xs text-charcoal-muted font-medium uppercase tracking-wider">
+                    <div data-t="timeline_c2_vibe" class="mt-8 pt-6 border-t border-sand-200 text-xs text-charcoal-muted font-medium uppercase tracking-wider">
                         Vibe: Artistik & Terang
                     </div>
                 </div>
@@ -398,12 +424,12 @@
                 <div class="bg-sand-50 p-8 md:p-10 shadow-sm flex flex-col justify-between h-full border border-sand-200/50 hover:shadow-md transition-shadow" data-slide-in>
                     <div class="space-y-6">
                         <span class="font-serif text-5xl italic text-charcoal/30 block">07.00 PM</span>
-                        <h3 class="font-serif text-2xl font-light text-charcoal">BBQ Intim & Selimut Kabut</h3>
-                        <p class="text-sm text-charcoal-muted leading-relaxed font-light">
+                        <h3 data-t="timeline_c3_title" class="font-serif text-2xl font-light text-charcoal">BBQ Intim & Selimut Kabut</h3>
+                        <p data-t="timeline_c3_desc" class="text-sm text-charcoal-muted leading-relaxed font-light">
                             Nyalakan panggangan di area outdoor terrace. Di bawah gantungan lampu temaram yang hangat dan kabut yang mulai turun perlahan, nikmati momen makan malam privat bersama keluarga tercinta.
                         </p>
                     </div>
-                    <div class="mt-8 pt-6 border-t border-sand-200 text-xs text-charcoal-muted font-medium uppercase tracking-wider">
+                    <div data-t="timeline_c3_vibe" class="mt-8 pt-6 border-t border-sand-200 text-xs text-charcoal-muted font-medium uppercase tracking-wider">
                         Vibe: Intim & Syahdu
                     </div>
                 </div>
@@ -413,7 +439,7 @@
         </div>
     </section>
 
-    <!-- Section: Curated Guest Testimonials with Fade In Animation -->
+    <!-- Section: Curated Guest Testimonials -->
     <section id="testimonials" class="py-24 md:py-32 bg-sand-50 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             
@@ -421,16 +447,16 @@
                 
                 <!-- Left Title Content -->
                 <div class="lg:col-span-4 space-y-6" data-reveal>
-                    <span class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold block">Guest Notes</span>
-                    <h2 class="font-serif text-4xl md:text-5xl font-light text-charcoal leading-tight">
+                    <span data-t="review_subtitle" class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold block">Guest Notes</span>
+                    <h2 data-t="review_title" class="font-serif text-4xl md:text-5xl font-light text-charcoal leading-tight">
                         Apa Kata <br>Mereka yang Telah Pulang?
                     </h2>
-                    <p class="text-charcoal-muted leading-relaxed font-light text-sm">
+                    <p data-t="review_desc" class="text-charcoal-muted leading-relaxed font-light text-sm">
                         Catatan-catatan manis yang ditinggalkan para tamu yang menemukan kedamaian sejenak di tempat kami.
                     </p>
                 </div>
 
-                <!-- Right Testimonial Grid with Fade In Animation -->
+                <!-- Right Testimonial Grid -->
                 <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-8">
                     
                     <!-- Review 1 -->
@@ -443,7 +469,7 @@
                                 <i data-lucide="star" class="w-4 h-4 fill-current"></i>
                                 <i data-lucide="star" class="w-4 h-4 fill-current"></i>
                             </div>
-                            <p class="font-serif text-lg text-charcoal italic leading-relaxed">
+                            <p data-t="review_1_p" class="font-serif text-lg text-charcoal italic leading-relaxed">
                                 "Sangat suka dengan kebersihan dan tata cahayanya. Tiap sudut beneran se-estetik itu untuk foto instagram. Kamar tidurnya juga super nyaman!"
                             </p>
                         </div>
@@ -463,7 +489,7 @@
                                 <i data-lucide="star" class="w-4 h-4 fill-current"></i>
                                 <i data-lucide="star" class="w-4 h-4 fill-current"></i>
                             </div>
-                            <p class="font-serif text-lg text-charcoal italic leading-relaxed">
+                            <p data-t="review_2_p" class="font-serif text-lg text-charcoal italic leading-relaxed">
                                 "Menginap 3 malam di sini dapet diskon 10% lumayan banget! Pemandangan Gunung Panderman dari teras pas pagi hari bener-bener menenangkan hati."
                             </p>
                         </div>
@@ -485,34 +511,34 @@
         <div class="max-w-4xl mx-auto px-6">
             
             <div class="text-center max-w-xl mx-auto mb-16 space-y-4" data-reveal>
-                <span class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold block">Reservasi Kamar</span>
-                <h2 class="font-serif text-4xl md:text-5xl font-light text-charcoal">Atur Kunjungan Privat Anda</h2>
+                <span data-t="book_subtitle" class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold block">Reservasi Kamar</span>
+                <h2 data-t="book_title" class="font-serif text-4xl md:text-5xl font-light text-charcoal">Atur Kunjungan Privat Anda</h2>
                 <div class="w-12 h-[1px] bg-charcoal/30 mx-auto mt-4"></div>
-                <p class="text-charcoal-muted font-light text-sm">
+                <p data-t="book_desc" class="text-charcoal-muted font-light text-sm">
                     Isi detail rencana menginap Anda di bawah ini. Nikmati <span class="font-medium text-terracotta">Diskon Otomatis 10%</span> dengan masa tinggal minimal 3 malam.
                 </p>
             </div>
 
-            <!-- The Minimalist Booking Form Container with Reveal Animation -->
+            <!-- The Minimalist Booking Form Container -->
             <div class="bg-sand-50 p-8 md:p-12 shadow-sm border border-sand-200/60" data-reveal>
                 <form id="bookingForm" class="space-y-8" onsubmit="sendToWhatsApp(event)">
                     
                     <!-- Name & Guests Row -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div class="space-y-2">
-                            <label for="fullName" class="block text-xs uppercase tracking-widest font-semibold text-charcoal">Nama Lengkap</label>
+                            <label for="fullName" data-t="form_name_lbl" class="block text-xs uppercase tracking-widest font-semibold text-charcoal">Nama Lengkap</label>
                             <input type="text" id="fullName" required 
                                    class="w-full bg-transparent border-b border-sand-300 py-3 px-1 text-sm text-charcoal focus:outline-none focus:border-terracotta transition-colors placeholder:text-sand-400" 
                                    placeholder="Contoh: Amelia Wardoyo">
                         </div>
                         <div class="space-y-2">
-                            <label for="guestCount" class="block text-xs uppercase tracking-widest font-semibold text-charcoal">Jumlah Tamu</label>
+                            <label for="guestCount" data-t="form_guests_lbl" class="block text-xs uppercase tracking-widest font-semibold text-charcoal">Jumlah Tamu</label>
                             <select id="guestCount" required 
                                     class="w-full bg-transparent border-b border-sand-300 py-3 px-1 text-sm text-charcoal focus:outline-none focus:border-terracotta transition-colors cursor-pointer">
-                                <option value="1-2 Orang">1 - 2 Orang</option>
-                                <option value="3-4 Orang" selected>3 - 4 Orang</option>
-                                <option value="5-6 Orang">5 - 6 Orang</option>
-                                <option value="Lebih dari 6 Orang">Lebih dari 6 Orang</option>
+                                <option value="1-2 Orang" data-t="form_g1">1 - 2 Orang</option>
+                                <option value="3-4 Orang" data-t="form_g2" selected>3 - 4 Orang</option>
+                                <option value="5-6 Orang" data-t="form_g3">5 - 6 Orang</option>
+                                <option value="Lebih dari 6 Orang" data-t="form_g4">Lebih dari 6 Orang</option>
                             </select>
                         </div>
                     </div>
@@ -520,12 +546,12 @@
                     <!-- Date Selection Row -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div class="space-y-2">
-                            <label for="checkInDate" class="block text-xs uppercase tracking-widest font-semibold text-charcoal">Tanggal Check-In</label>
+                            <label for="checkInDate" data-t="form_in_lbl" class="block text-xs uppercase tracking-widest font-semibold text-charcoal">Tanggal Check-In</label>
                             <input type="date" id="checkInDate" required onchange="calculateBooking()"
                                    class="w-full bg-transparent border-b border-sand-300 py-3 px-1 text-sm text-charcoal focus:outline-none focus:border-terracotta transition-colors cursor-pointer">
                         </div>
                         <div class="space-y-2">
-                            <label for="checkOutDate" class="block text-xs uppercase tracking-widest font-semibold text-charcoal">Tanggal Check-Out</label>
+                            <label for="checkOutDate" data-t="form_out_lbl" class="block text-xs uppercase tracking-widest font-semibold text-charcoal">Tanggal Check-Out</label>
                             <input type="date" id="checkOutDate" required onchange="calculateBooking()"
                                    class="w-full bg-transparent border-b border-sand-300 py-3 px-1 text-sm text-charcoal focus:outline-none focus:border-terracotta transition-colors cursor-pointer">
                         </div>
@@ -533,7 +559,7 @@
 
                     <!-- Note / Special Request -->
                     <div class="space-y-2">
-                        <label for="specialRequest" class="block text-xs uppercase tracking-widest font-semibold text-charcoal">Permintaan Khusus (Opsional)</label>
+                        <label for="specialRequest" data-t="form_req_lbl" class="block text-xs uppercase tracking-widest font-semibold text-charcoal">Permintaan Khusus (Opsional)</label>
                         <textarea id="specialRequest" rows="2"
                                   class="w-full bg-transparent border-b border-sand-300 py-3 px-1 text-sm text-charcoal focus:outline-none focus:border-terracotta transition-colors placeholder:text-sand-400 resize-none" 
                                   placeholder="Contoh: Tambahan ekstra bed, set up honeymoon, atau lainnya..."></textarea>
@@ -541,26 +567,26 @@
 
                     <!-- Dynamic Live Price Summary Box -->
                     <div class="bg-sand-100 p-6 space-y-4 border border-sand-200" id="summaryBox">
-                        <h4 class="font-serif text-lg font-medium text-charcoal border-b border-sand-200 pb-2">Rincian Estimasi Biaya Stay</h4>
+                        <h4 data-t="summary_title" class="font-serif text-lg font-medium text-charcoal border-b border-sand-200 pb-2">Rincian Estimasi Biaya Stay</h4>
                         
                         <div class="flex justify-between text-sm">
-                            <span class="text-charcoal-muted font-light">Harga Base Rate (per malam)</span>
+                            <span data-t="summary_base" class="text-charcoal-muted font-light">Harga Base Rate (per malam)</span>
                             <span class="font-medium text-charcoal" id="baseRateLabel">Rp 1.500.000</span>
                         </div>
                         
                         <div class="flex justify-between text-sm">
-                            <span class="text-charcoal-muted font-light">Durasi Menginap</span>
+                            <span data-t="summary_duration" class="text-charcoal-muted font-light">Durasi Menginap</span>
                             <span class="font-medium text-charcoal" id="durationLabel">-</span>
                         </div>
 
                         <!-- Discount Highlight -->
                         <div id="discountRow" class="hidden flex justify-between text-sm text-emerald-700 font-medium">
-                            <span>Promo Stay 3 Malam+ (Diskon 10%)</span>
+                            <span data-t="summary_promo">Promo Stay 3 Malam+ (Diskon 10%)</span>
                             <span id="discountLabel">- Rp 0</span>
                         </div>
 
                         <div class="flex justify-between text-base font-semibold text-charcoal border-t border-sand-200 pt-3">
-                            <span>Total Estimasi Pembayaran</span>
+                            <span data-t="summary_total">Total Estimasi Pembayaran</span>
                             <span class="text-terracotta" id="totalPriceLabel">Rp 0</span>
                         </div>
                     </div>
@@ -569,7 +595,7 @@
                     <button type="submit" 
                             class="w-full bg-charcoal hover:bg-terracotta text-white py-4 text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-sm flex items-center justify-center space-x-3">
                         <i data-lucide="message-square" class="w-4 h-4"></i>
-                        <span>Kirim Reservasi ke WhatsApp Privat</span>
+                        <span data-t="form_submit_btn">Kirim Reservasi ke WhatsApp Privat</span>
                     </button>
                 </form>
             </div>
@@ -582,12 +608,12 @@
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
                 
-                <!-- Contact Details (5 Columns) -->
+                <!-- Contact Details -->
                 <div class="lg:col-span-5 space-y-10" data-reveal>
                     <div class="space-y-4">
-                        <span class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold block">Location & Contact</span>
-                        <h2 class="font-serif text-4xl font-light text-charcoal">Temukan Ketenangan Kami</h2>
-                        <p class="text-charcoal-muted font-light leading-relaxed text-sm">
+                        <span data-t="contact_subtitle" class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold block">Location & Contact</span>
+                        <h2 data-t="contact_title" class="font-serif text-4xl font-light text-charcoal">Temukan Ketenangan Kami</h2>
+                        <p data-t="contact_desc" class="text-charcoal-muted font-light leading-relaxed text-sm">
                             Berlokasi strategis di Emerald Batu, sebuah kompleks privat yang menjamin keamanan dan kenyamanan privat Anda selama berlibur.
                         </p>
                     </div>
@@ -600,12 +626,12 @@
                                 <i data-lucide="map-pin" class="w-5 h-5"></i>
                             </div>
                             <div>
-                                <h4 class="font-serif text-lg font-medium text-charcoal">Alamat Villa</h4>
-                                <p class="text-xs text-charcoal-muted font-light mt-1 leading-relaxed">
+                                <h4 data-t="contact_addr_title" class="font-serif text-lg font-medium text-charcoal">Alamat Villa</h4>
+                                <p data-t="contact_addr_desc" class="text-xs text-charcoal-muted font-light mt-1 leading-relaxed">
                                     Villa Aurora Emerald Batu L-11, Kota Batu, Jawa Timur.
                                 </p>
                                 <a href="https://maps.app.goo.gl/H583Tc6mFuDVbM4a7" target="_blank" class="text-xs text-terracotta hover:underline font-semibold mt-2 inline-block">
-                                    Petunjuk Google Maps <i data-lucide="arrow-up-right" class="w-3 h-3 inline"></i>
+                                    <span data-t="contact_maps_link">Petunjuk Google Maps</span> <i data-lucide="arrow-up-right" class="w-3 h-3 inline"></i>
                                 </a>
                             </div>
                         </div>
@@ -616,8 +642,8 @@
                                 <i data-lucide="instagram" class="w-5 h-5"></i>
                             </div>
                             <div>
-                                <h4 class="font-serif text-lg font-medium text-charcoal">Media Sosial</h4>
-                                <p class="text-xs text-charcoal-muted font-light mt-1 leading-relaxed">
+                                <h4 data-t="contact_social_title" class="font-serif text-lg font-medium text-charcoal">Media Sosial</h4>
+                                <p data-t="contact_social_desc" class="text-xs text-charcoal-muted font-light mt-1 leading-relaxed">
                                     Lihat update suasana harian dan inspirasi sudut minimalis kami di Instagram.
                                 </p>
                                 <a href="https://www.instagram.com/aurora.villabatu" target="_blank" class="text-xs text-terracotta hover:underline font-semibold mt-2 inline-block">
@@ -632,8 +658,8 @@
                                 <i data-lucide="phone" class="w-5 h-5"></i>
                             </div>
                             <div>
-                                <h4 class="font-serif text-lg font-medium text-charcoal">Hubungi Layanan Privat</h4>
-                                <p class="text-xs text-charcoal-muted font-light mt-1 leading-relaxed">
+                                <h4 data-t="contact_phone_title" class="font-serif text-lg font-medium text-charcoal">Hubungi Layanan Privat</h4>
+                                <p data-t="contact_phone_desc" class="text-xs text-charcoal-muted font-light mt-1 leading-relaxed">
                                     Konsultasi privat mengenai kebutuhan grup Anda, sewa seluruh area, atau acara khusus.
                                 </p>
                                 <a href="https://wa.me/6281359815703" target="_blank" class="text-xs text-terracotta hover:underline font-semibold mt-2 inline-block">
@@ -644,7 +670,7 @@
                     </div>
                 </div>
 
-                <!-- Google Maps Embed (7 Columns) with Reveal Animation -->
+                <!-- Google Maps Embed -->
                 <div class="lg:col-span-7 h-[450px] bg-sand-200 border border-sand-300 relative shadow-md" data-reveal>
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.9947212142015!2d112.5599964757515!3d-7.895619078556633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9a10d4ef735cbb3%3A0xd606fef9fc9ca2fc!2sVilla%20Aurora%20Emerald%20Batu%20L-11!5e0!3m2!1sen!2sid!4v1781498979696!5m2!1sen!2sid" 
                             class="w-full h-full border-0 grayscale opacity-90 contrast-125 focus:outline-none" 
@@ -665,16 +691,15 @@
                 <a href="#" class="font-serif text-3xl tracking-widest font-light uppercase text-white">
                     Aurora<span class="text-terracotta">.</span>
                 </a>
-                <p class="text-xs text-white/50 font-light">
+                <p data-t="footer_copyright" class="text-xs text-white/50 font-light">
                     &copy; 2026 Villa Aurora Emerald Batu. Seluruh hak cipta dilindungi.
                 </p>
             </div>
 
             <div class="flex items-center space-x-8 text-xs uppercase tracking-widest font-medium text-white/70">
-                <a href="#vibe" class="hover:text-white transition-colors">Vibe</a>
-                <a href="#spaces" class="hover:text-white transition-colors">Showcase</a>
-                <a href="#timeline" class="hover:text-white transition-colors">A Day At Aurora</a>
-                <a href="#testimonials" class="hover:text-white transition-colors">Testimoni</a>
+                <a href="#vibe" data-t="nav_vibe" class="hover:text-white transition-colors">Vibe</a>
+                <a href="#spaces" data-t="nav_showcase" class="hover:text-white transition-colors">Showcase</a>
+                <a href="#timeline" data-t="nav_timeline" class="hover:text-white transition-colors">A Day At Aurora</a>
             </div>
 
             <div class="flex items-center space-x-4">
@@ -689,8 +714,212 @@
         </div>
     </footer>
 
-    <!-- Form & Aesthetic Logic Script -->
+    <!-- Form, Translation & Aesthetic Logic Script -->
     <script>
+        // Language Switcher Dictionary
+        const translations = {
+            ID: {
+                nav_vibe: "Suasana",
+                nav_showcase: "Galeri",
+                nav_timeline: "Satu Hari",
+                nav_book_btn: "Reservasi Stay",
+                hero_location: "Batu, Jawa Timur",
+                hero_title: "The Aesthetic <br><span class='italic font-light text-sand-100'>Minimalist Sanctuary</span>",
+                hero_desc: "Hadirkan ketenangan jiwa di kaki Gunung Panderman. Sudut-sudut berbalut cahaya alami, sentuhan linen lembut, dan ketenangan yang merangkul Anda di Kota Batu.",
+                hero_btn_book: "Mulai Reservasi",
+                hero_btn_discover: "Jelajahi Suasana",
+                hero_scroll: "Scroll untuk menjelajah",
+                vibe_subtitle: "Suasana & Filosofi",
+                vibe_title: "Dirancang untuk mengistirahatkan pikiran yang bising.",
+                vibe_desc_1: "Villa Aurora bukan sekadar penginapan dengan dinding beton yang kaku. Kami mengkurasi ruang di mana cahaya matahari pagi jatuh dengan lembut di atas lantai semen ekspos, dan angin sore sejuk kota Batu menerbangkan tirai linen dengan ritme yang menenangkan.",
+                vibe_desc_2: "Setiap sudut adalah kanvas minimalis yang estetik dan ramah kamera. Memungkinkan Anda mengabadikan momen berharga, atau sekadar menyeduh kopi hangat sembari menikmati siluet pegunungan dari balik jendela kaca raksasa kami.",
+                vibe_feature_1_title: "Cahaya Alami",
+                vibe_feature_1_desc: "Pencahayaan alami dari celah arsitektural yang presisi.",
+                vibe_feature_2_title: "Sudut Estetis",
+                vibe_feature_2_desc: "Setiap sudut terkurasi indah untuk mata estetis Anda.",
+                vibe_quote: '“Ketenangan sejati ditemukan saat kita kembali ke hal-hal sederhana yang fungsional.”',
+                spaces_subtitle: "Ruang Kurasi",
+                spaces_title: "Sudut-Sudut Estetis Villa Aurora",
+                spaces_desc: "Tata letak asimetris yang dirancang khusus untuk memanjakan mata dan memberikan ruang bernapas yang lega.",
+                spaces_c1_hover: "Detail area santai semi outdoor",
+                spaces_c1_tag: "Area Tengah",
+                spaces_c1_title: "The Sunken Lounge",
+                spaces_c1_desc: "Ruang tengah lapang tanpa sekat dengan pencahayaan skylight eksklusif, sempurna untuk berkumpul hangat.",
+                spaces_c2_hover: "Kasur King Koil & Linen Import",
+                spaces_c2_tag: "Ruang Istirahat",
+                spaces_c2_title: "Master Oasis Bedroom",
+                spaces_c2_desc: "Kamar tidur utama dengan pemandangan pegunungan langsung dari bantal Anda. Sentuhan linen organik premium.",
+                spaces_c3_hover: "Peralatan masak lengkap & estetik",
+                spaces_c3_tag: "Dapur Bersama",
+                spaces_c3_title: "The Warm Kitchenette",
+                spaces_c3_desc: "Dapur berkonsep island kayu yang hangat, dilengkapi dengan alat seduh manual untuk barista pagi Anda.",
+                spaces_c4_hover: "Balkon outdoor & area BBQ",
+                spaces_c4_tag: "Ruang Terbuka",
+                spaces_c4_title: "Al-Fresco Breeze Terrace",
+                spaces_c4_desc: "Balkon luar ruangan berlantai dek kayu dengan kursi malas bergaya Skandinavia untuk menikmati kabut senja Batu.",
+                timeline_subtitle: "Sehari Di Villa Aurora",
+                timeline_title: "Menghayati Setiap Detik Waktu",
+                timeline_desc: "Bagaimana satu hari istimewa Anda akan terbentang di perlindungan estetis kami.",
+                timeline_c1_title: "Embun Pagi & Kopi Balkon",
+                timeline_c1_desc: "Bangun tanpa alarm bising. Sinar mentari menyelinap lembut dari celah jendela, mengundang Anda menyeduh V60 di balkon ditemani semilir dingin khas pegunungan Batu.",
+                timeline_c1_vibe: "Suasana: Tenang & Hangat",
+                timeline_c2_title: "Estetika Cahaya & Lembar Buku",
+                timeline_c2_desc: "Waktu di mana pencahayaan villa berada pada titik tercantik (Golden Hour siang). Sempurna untuk berfoto di sudut Sunken Lounge, membaca buku pilihan, atau berdiskusi santai di ruang tengah.",
+                timeline_c2_vibe: "Suasana: Artistik & Terang",
+                timeline_c3_title: "BBQ Intim & Selimut Kabut",
+                timeline_c3_desc: "Nyalakan panggangan di area outdoor terrace. Di bawah gantungan lampu temaram yang hangat dan kabut yang mulai turun perlahan, nikmati momen makan malam privat bersama keluarga tercinta.",
+                timeline_c3_vibe: "Suasana: Intim & Syahdu",
+                review_subtitle: "Catatan Tamu",
+                review_title: "Apa Kata Mereka yang Telah Pulang?",
+                review_desc: "Catatan-catatan manis yang ditinggalkan para tamu yang menemukan kedamaian sejenak di tempat kami.",
+                review_1_p: '"Sangat suka dengan kebersihan dan tata cahayanya. Tiap sudut beneran se-estetik itu untuk foto instagram. Kamar tidurnya juga super nyaman!"',
+                review_2_p: '"Menginap 3 malam di sini dapet diskon 10% lumayan banget! Pemandangan Gunung Panderman dari teras pas pagi hari bener-bener menenangkan hati."',
+                book_subtitle: "Reservasi Kamar",
+                book_title: "Atur Kunjungan Privat Anda",
+                book_desc: "Isi detail rencana menginap Anda di bawah ini. Nikmati diskon otomatis 10% dengan masa tinggal minimal 3 malam.",
+                form_name_lbl: "Nama Lengkap",
+                form_name_plh: "Contoh: Amelia Wardoyo",
+                form_guests_lbl: "Jumlah Tamu",
+                form_g1: "1 - 2 Orang",
+                form_g2: "3 - 4 Orang",
+                form_g3: "5 - 6 Orang",
+                form_g4: "Lebih dari 6 Orang",
+                form_in_lbl: "Tanggal Check-In",
+                form_out_lbl: "Tanggal Check-Out",
+                form_req_lbl: "Permintaan Khusus (Opsional)",
+                form_req_plh: "Contoh: Tambahan ekstra bed, set up honeymoon, atau lainnya...",
+                summary_title: "Rincian Estimasi Biaya Stay",
+                summary_base: "Harga Base Rate (per malam)",
+                summary_duration: "Durasi Menginap",
+                summary_promo: "Promo Stay 3 Malam+ (Diskon 10%)",
+                summary_total: "Total Estimasi Pembayaran",
+                form_submit_btn: "Kirim Reservasi ke WhatsApp Privat",
+                contact_subtitle: "Lokasi & Kontak",
+                contact_title: "Temukan Ketenangan Kami",
+                contact_desc: "Berlokasi strategis di Emerald Batu, sebuah kompleks privat yang menjamin keamanan dan kenyamanan privat Anda selama berlibur.",
+                contact_addr_title: "Alamat Villa",
+                contact_addr_desc: "Villa Aurora Emerald Batu L-11, Kota Batu, Jawa Timur.",
+                contact_maps_link: "Petunjuk Google Maps",
+                contact_social_title: "Media Sosial",
+                contact_social_desc: "Lihat update suasana harian dan inspirasi sudut minimalis kami di Instagram.",
+                contact_phone_title: "Hubungi Layanan Privat",
+                contact_phone_desc: "Konsultasi privat mengenai kebutuhan grup Anda, sewa seluruh area, atau acara khusus.",
+                footer_copyright: "&copy; 2026 Villa Aurora Emerald Batu. Seluruh hak cipta dilindungi."
+            },
+            EN: {
+                nav_vibe: "The Vibe",
+                nav_showcase: "Showcase",
+                nav_timeline: "A Day At Aurora",
+                nav_book_btn: "Book Stay",
+                hero_location: "Batu, East Java",
+                hero_title: "The Aesthetic <br><span class='italic font-light text-sand-100'>Minimalist Sanctuary</span>",
+                hero_desc: "Find serenity at the foothills of Mount Panderman. Spaces adorned with natural light, delicate linen, and a tranquility that gently embraces you in Batu City.",
+                hero_btn_book: "Begin Reservation",
+                hero_btn_discover: "Explore Vibe",
+                hero_scroll: "Scroll to discover",
+                vibe_subtitle: "Vibe & Philosophy",
+                vibe_title: "Meticulously designed to silence your busy thoughts.",
+                vibe_desc_1: "Villa Aurora is more than just raw concrete structures. We curate spaces where the morning sun kisses exposed plaster floors and gentle highland breezes sway linen drapes into a calming rhythm.",
+                vibe_desc_2: "Every corner is an aesthetic, camera-friendly minimalist canvas. Capture precious moments or simply brew premium coffee while gazing at mountain silhouettes behind giant glass frames.",
+                vibe_feature_1_title: "Natural Light",
+                vibe_feature_1_desc: "Carefully calibrated architectural gaps that welcome natural illumination.",
+                vibe_feature_2_title: "Aesthetic Corner",
+                vibe_feature_2_desc: "Every single viewpoint is beautifully curated for design-appreciative eyes.",
+                vibe_quote: '"True peace is discovered when we return to simple, functional essentials."',
+                spaces_subtitle: "Curated Spaces",
+                spaces_title: "Visual Angles of Villa Aurora",
+                spaces_desc: "An asymmetric layout consciously composed to pamper eyes and provide breathing space.",
+                spaces_c1_hover: "Semi-outdoor open living room details",
+                spaces_c1_tag: "Living Area",
+                spaces_c1_title: "The Sunken Lounge",
+                spaces_c1_desc: "A wide, partitionless living room with premium skylight ceiling, ideal for intimate family gatherings.",
+                spaces_c2_hover: "King Koil Mattress & Imported Linen",
+                spaces_c2_tag: "Rest Sanctuary",
+                spaces_c2_title: "Master Oasis Bedroom",
+                spaces_c2_desc: "The master bedroom framing mountain ranges directly from your pillows. Styled with luxury organic linen.",
+                spaces_c3_hover: "Fully-equipped aesthetic cookware",
+                spaces_c3_tag: "Communal Kitchen",
+                spaces_c3_title: "The Warm Kitchenette",
+                spaces_c3_desc: "Warm wood-island kitchen, completely furnished with manual brewing equipment for morning baristas.",
+                spaces_c4_hover: "Outdoor balcony & BBQ spaces",
+                spaces_c4_tag: "Outdoor Living",
+                spaces_c4_title: "Al-Fresco Breeze Terrace",
+                spaces_c4_desc: "A wood-decked balcony complete with minimalist Scandinavian deck chairs, ideal for misty golden-hour breezes.",
+                timeline_subtitle: "A Day At Aurora",
+                timeline_title: "Cherishing Every Single Moment",
+                timeline_desc: "How your curated day will unfold gracefully at our minimalist sanctuary.",
+                timeline_c1_title: "Morning Mist & Balcony Brew",
+                timeline_c1_desc: "Wake up without annoying alarm tones. Gentle sunshine streams through gaps, calling you to brew coffee on the balcony amid Batu's cool morning air.",
+                timeline_c1_vibe: "Vibe: Peaceful & Warm",
+                timeline_c2_title: "Chasing Light & Cozy Pages",
+                timeline_c2_desc: "The golden hour peaks indoors. Ideal for aesthetic photography, losing yourself in visual novels, or quiet discussions in the living room.",
+                timeline_c2_vibe: "Vibe: Artistic & Luminous",
+                timeline_c3_title: "Intimate BBQ & Misty Nights",
+                timeline_c3_desc: "Ignite the grill on our outdoor deck. Surrounded by cozy hanging bulb illumination and slowly descending mountain mist, enjoy dining with close ones.",
+                timeline_c3_vibe: "Vibe: Intimate & Serene",
+                review_subtitle: "Guest Notes",
+                review_title: "Whispers of Returning Guests",
+                review_desc: "Heartwarming notes left by travelers who found an oasis of peace at our stay.",
+                review_1_p: '"Stunning cleanliness and structural lighting. Every corner is perfectly photogenic for social media. Bedding is incredibly high quality!"',
+                review_2_p: '"Stayed for 3 nights and automatically got 10% discount. The Mount Panderman scenery during morning coffee was spiritually healing."',
+                book_subtitle: "Room Reservation",
+                book_title: "Secure Your Private Stay",
+                book_desc: "Fill out your travel details below. Enjoy an automatic 10% discount for bookings of 3 nights or more.",
+                form_name_lbl: "Full Name",
+                form_name_plh: "Example: Amelia Wardoyo",
+                form_guests_lbl: "Guest Count",
+                form_g1: "1 - 2 Guests",
+                form_g2: "3 - 4 Guests",
+                form_g3: "5 - 6 Guests",
+                form_g4: "More than 6 Guests",
+                form_in_lbl: "Check-In Date",
+                form_out_lbl: "Check-Out Date",
+                form_req_lbl: "Special Requests (Optional)",
+                form_req_plh: "Example: Extra bed, honeymoon arrangement, etc...",
+                summary_title: "Estimated Costs Summary",
+                summary_base: "Base Rate (per night)",
+                summary_duration: "Duration of Stay",
+                summary_promo: "3+ Nights Special (10% Off)",
+                summary_total: "Total Estimated Payment",
+                form_submit_btn: "Send Booking Inquiry to WhatsApp",
+                contact_subtitle: "Location & Contact",
+                contact_title: "Journey To Serenity",
+                contact_desc: "Strategically located inside Emerald Batu residential complex, guaranteeing premium safety and complete privacy during your vacation.",
+                contact_addr_title: "Villa Address",
+                contact_addr_desc: "Villa Aurora Emerald Batu L-11, Kota Batu, East Java.",
+                contact_maps_link: "Google Maps Directions",
+                contact_social_title: "Social Media",
+                contact_social_desc: "Check out visual updates, guest experiences, and cozy snippets directly on Instagram.",
+                contact_phone_title: "Private Inquiries",
+                contact_phone_desc: "Connect directly with our manager regarding group events, photoshoot bookings, or full buyouts.",
+                footer_copyright: "&copy; 2026 Villa Aurora Emerald Batu. All rights reserved."
+            }
+        };
+
+        let currentLang = 'ID';
+
+        // Translate Function
+        function changeLanguage(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+
+            // Select all components with translation keys
+            document.querySelectorAll('[data-t]').forEach(el => {
+                const key = el.getAttribute('data-t');
+                if (t[key]) {
+                    // Check if it's input placeholder
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = t[key];
+                    } else {
+                        el.innerHTML = t[key];
+                    }
+                }
+            });
+
+            // Update form defaults & calculation texts
+            calculateBooking();
+        }
+
         // Set Minimum check-in & check-out dates (Tidak bisa mundur ke belakang)
         const today = new Date().toISOString().split('T')[0];
         const checkInInput = document.getElementById('checkInDate');
@@ -701,23 +930,43 @@
 
         const baseRate = 1500000; // Harga default per malam Rp 1.500.000
 
-        // Format Rupiah helper
-        function formatRupiah(number) {
-            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+        // Currency Configuration
+        let currentCurrency = 'IDR';
+        const exchangeRates = {
+            IDR: { rate: 1, symbol: 'Rp ', decimal: 0 },
+            USD: { rate: 15000, symbol: '$ ', decimal: 0 },
+            SGD: { rate: 11000, symbol: 'S$ ', decimal: 0 },
+            AUD: { rate: 10000, symbol: 'A$ ', decimal: 0 }
+        };
+
+        // Format currency helper
+        function formatCurrency(number, currency = currentCurrency) {
+            const config = exchangeRates[currency];
+            const converted = Math.round(number / config.rate);
+            return config.symbol + converted.toLocaleString('id-ID');
         }
 
-        // Main Calculator Logic
+        // Trigger currency changes
+        function changeCurrency(val) {
+            currentCurrency = val;
+            document.getElementById('baseRateLabel').innerText = formatCurrency(baseRate);
+            calculateBooking();
+        }
+
+        // Main Calculation Logic
         function calculateBooking() {
             const checkInVal = checkInInput.value;
             const checkOutVal = checkOutInput.value;
             
-            // Atur agar check-out minimal sehari setelah check-in
+            // Adjust minimum check-out date based on check-in selection
             if (checkInVal) {
                 const checkInDateObj = new Date(checkInVal);
                 const minCheckOutDate = new Date(checkInDateObj);
                 minCheckOutDate.setDate(checkInDateObj.getDate() + 1);
                 checkOutInput.min = minCheckOutDate.toISOString().split('T')[0];
             }
+
+            document.getElementById('baseRateLabel').innerText = formatCurrency(baseRate);
 
             if (!checkInVal || !checkOutVal) {
                 resetSummary();
@@ -727,43 +976,43 @@
             const checkInDate = new Date(checkInVal);
             const checkOutDate = new Date(checkOutVal);
 
-            // Validasi jika user memilih tanggal check-out mendahului check-in
+            // Validation check
             if (checkOutDate <= checkInDate) {
-                document.getElementById('totalPriceLabel').innerText = "Tanggal tidak valid";
+                document.getElementById('totalPriceLabel').innerText = currentLang === 'ID' ? "Tanggal tidak valid" : "Invalid Date Selection";
                 return;
             }
 
-            // Hitung durasi malam
+            // Calculate stay duration
             const diffTime = Math.abs(checkOutDate - checkInDate);
             const diffNights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-            document.getElementById('durationLabel').innerText = `${diffNights} Malam`;
+            const durationSuffix = currentLang === 'ID' ? ' Malam' : ' Nights';
+            document.getElementById('durationLabel').innerText = `${diffNights}${durationSuffix}`;
 
             let totalPrice = diffNights * baseRate;
             let discountValue = 0;
 
-            // Logika diskon otomatis 10% jika menginap >= 3 malam
+            // Automatic 10% discount for 3+ nights
             if (diffNights >= 3) {
                 discountValue = totalPrice * 0.1;
                 totalPrice = totalPrice - discountValue;
 
                 document.getElementById('discountRow').classList.remove('hidden');
-                document.getElementById('discountLabel').innerText = `- ${formatRupiah(discountValue)}`;
+                document.getElementById('discountLabel').innerText = `- ${formatCurrency(discountValue)}`;
             } else {
                 document.getElementById('discountRow').classList.add('hidden');
             }
 
-            // Update DOM
-            document.getElementById('totalPriceLabel').innerText = formatRupiah(totalPrice);
+            document.getElementById('totalPriceLabel').innerText = formatCurrency(totalPrice);
         }
 
         function resetSummary() {
             document.getElementById('durationLabel').innerText = "-";
             document.getElementById('discountRow').classList.add('hidden');
-            document.getElementById('totalPriceLabel').innerText = "Rp 0";
+            document.getElementById('totalPriceLabel').innerText = formatCurrency(0);
         }
 
-        // WhatsApp Sender Logic
+        // WhatsApp Messenger Integrations
         function sendToWhatsApp(e) {
             e.preventDefault();
 
@@ -774,7 +1023,8 @@
             const specialRequest = document.getElementById('specialRequest').value;
 
             if (!checkIn || !checkOut) {
-                alert("Silakan tentukan tanggal menginap.");
+                const alertMsg = currentLang === 'ID' ? "Silakan tentukan tanggal menginap." : "Please select your stay dates.";
+                alert(alertMsg);
                 return;
             }
 
@@ -792,41 +1042,69 @@
                 finalPrice = rawPrice - discount;
             }
 
-            // Construct Message
-            let message = `Halo, Admin Villa Aurora Emerald Batu. Saya ingin menanyakan ketersediaan tanggal dan melakukan reservasi privat:\n\n`;
-            message += `*Nama Lengkap:* ${fullName}\n`;
-            message += `*Jumlah Tamu:* ${guestCount}\n`;
-            message += `*Tanggal Check-In:* ${formatDateIndonesia(checkIn)}\n`;
-            message += `*Tanggal Check-Out:* ${formatDateIndonesia(checkOut)}\n`;
-            message += `*Durasi Stay:* ${diffNights} Malam\n\n`;
-            
-            message += `*Rincian Estimasi Biaya:*\n`;
-            message += `• Base Rate: ${formatRupiah(baseRate)} / malam\n`;
-            if (diffNights >= 3) {
-                message += `• Subtotal: ${formatRupiah(rawPrice)}\n`;
-                message += `• Promo Stay 3 Malam+ (Diskon 10%): - ${formatRupiah(discount)}\n`;
+            // Construct Message in matching active language
+            let message = "";
+            if (currentLang === 'ID') {
+                message = `Halo, Admin Villa Aurora Emerald Batu. Saya ingin menanyakan ketersediaan tanggal dan melakukan reservasi privat:\n\n`;
+                message += `*Nama Lengkap:* ${fullName}\n`;
+                message += `*Jumlah Tamu:* ${guestCount}\n`;
+                message += `*Tanggal Check-In:* ${formatDateIndonesia(checkIn)}\n`;
+                message += `*Tanggal Check-Out:* ${formatDateIndonesia(checkOut)}\n`;
+                message += `*Durasi Stay:* ${diffNights} Malam\n\n`;
+                
+                message += `*Rincian Estimasi Biaya (Mata Uang: ${currentCurrency}):*\n`;
+                message += `• Base Rate: ${formatCurrency(baseRate)} / malam\n`;
+                if (diffNights >= 3) {
+                    message += `• Subtotal: ${formatCurrency(rawPrice)}\n`;
+                    message += `• Promo Stay 3 Malam+ (Diskon 10%): - ${formatCurrency(discount)}\n`;
+                }
+                message += `• *Total Estimasi:* ${formatCurrency(finalPrice)}\n\n`;
+
+                if (specialRequest.trim() !== "") {
+                    message += `*Permintaan Khusus:* ${specialRequest}\n\n`;
+                }
+                message += `Mohon info ketersediaan unit dan kelanjutan pembayaran. Terima kasih.`;
+            } else {
+                message = `Hello, Admin Villa Aurora Emerald Batu. I would like to check availability and request a private reservation:\n\n`;
+                message += `*Full Name:* ${fullName}\n`;
+                message += `*Guests:* ${guestCount}\n`;
+                message += `*Check-In Date:* ${formatDateEnglish(checkIn)}\n`;
+                message += `*Check-Out Date:* ${formatDateEnglish(checkOut)}\n`;
+                message += `*Stay Duration:* ${diffNights} Night(s)\n\n`;
+                
+                message += `*Estimated Cost Details (Currency: ${currentCurrency}):*\n`;
+                message += `• Base Rate: ${formatCurrency(baseRate)} / night\n`;
+                if (diffNights >= 3) {
+                    message += `• Subtotal: ${formatCurrency(rawPrice)}\n`;
+                    message += `• 3+ Nights Special (10% Off): - ${formatCurrency(discount)}\n`;
+                }
+                message += `• *Total Estimate:* ${formatCurrency(finalPrice)}\n\n`;
+
+                if (specialRequest.trim() !== "") {
+                    message += `*Special Request:* ${specialRequest}\n\n`;
+                }
+                message += `Please advise on availability and next booking steps. Thank you.`;
             }
-            message += `• *Total Estimasi:* ${formatRupiah(finalPrice)}\n\n`;
 
-            if (specialRequest.trim() !== "") {
-                message += `*Permintaan Khusus:* ${specialRequest}\n\n`;
-            }
-
-            message += `Mohon info ketersediaan unit dan kelanjutan pembayaran. Terima kasih.`;
-
-            // Encode & Kirim
             const encodedText = encodeURIComponent(message);
-            const waNumber = "6281359815703"; // Nomor WA Sesuai Permintaan
+            const waNumber = "6281359815703"; 
             const waUrl = `https://wa.me/${waNumber}?text=${encodedText}`;
 
             window.open(waUrl, '_blank');
         }
 
-        // Helper Tanggal Indonesia
+        // Date Helper ID
         function formatDateIndonesia(dateString) {
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             const date = new Date(dateString);
             return date.toLocaleDateString('id-ID', options);
+        }
+
+        // Date Helper EN
+        function formatDateEnglish(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', options);
         }
 
         // Initialize Lucide Icons
@@ -844,7 +1122,7 @@
             }
         });
 
-        // Intersection Observer for Reveal, Slide In, and Fade In Animations
+        // Intersection Observer Setup
         const options = {
             root: null,
             rootMargin: '0px',
@@ -860,6 +1138,7 @@
             });
         }, options);
 
+        // Track visual triggers
         const revealElements = document.querySelectorAll('[data-reveal]');
         revealElements.forEach(element => observer.observe(element));
 
@@ -868,6 +1147,9 @@
 
         const fadeInElements = document.querySelectorAll('[data-fade-in]');
         fadeInElements.forEach(element => observer.observe(element));
+
+        // Set initial language default
+        changeLanguage('ID');
     </script>
 </body>
 </html>
